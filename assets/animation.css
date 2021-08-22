@@ -1,7 +1,13 @@
 /* The animation code */
 @keyframes example {
   0% {background-color: red;}
-  100% {background-color: violet;}
+  14.28571% {background-color: orange;}
+  28.57142% {background-color: yellow}
+  42.85714% {background-color: green;}
+  57.142857%{background-color: blue;}
+  71.42857% {background-color: indigo;}
+  85.714285%{background-color: violet;}
+  100% {background-color: white;}
 }
 
 /* The element to apply the animation to */
