@@ -17,4 +17,5 @@ body {
   background-color: red;
   animation-name: example;
   animation-duration: 7s;
+  animation-delay: 2s;
 }
