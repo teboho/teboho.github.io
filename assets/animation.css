@@ -1,7 +1,7 @@
 /* The animation code */
 @keyframes example {
-  from {background-color: red;}
-  to {background-color: yellow;}
+  0% {background-color: red;}
+  100% {background-color: violet;}
 }
 
 /* The element to apply the animation to */
