@@ -9,18 +9,27 @@
   <link rel="stylesheet" href="/assets/style.css"/>
  <head>
  <body>
-  <h1>Tracking every change in position of the mouse</h1>
+  <canvas id="canvas"></canvas>
   <h2 id="output"></h2>
   <h2 id="position1"></h2>
   <h2 id="position2"></h2>
   <script>
+     
      let counter = 0;
      document.onmousemove = (event) => {
         document.getElementById("output").textContent = "Move " + counter++;
 
         document.getElementById("position1").textContent = "Page Position (x, y): (" + event.pageX + ", " + event.pageY + ")";
         document.getElementById("position2").textContent = "Client Position (x, y): (" + event.clientX + ", " + event.clientY + ")";
+
+         let canvas = document.getElementById("canvas");
+         let context = canvas.getContext("2d");
+         let bound = canvas.getBoundingClientRect();
+         context.fillStyle = "red";
+         context.fillRect(event.pageX - bound.left - 10*canvas.clientLeft, event.pageY - bound.top - 10*canvas.clientTop, 2, 2);
      }
+
+
   </script>
  </body>
 </html>
