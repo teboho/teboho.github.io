@@ -2,15 +2,3 @@ body {
   padding: 20px;
   background-color: grey;
 }
-/* Define an animation by specifying the keframes */
-@keyframes shower_animation {
-  from {width: 0%;}
-  to {width: 100%;}
-}
-div {
-  height: 50px;
-
-  /* Bind the Animation */
-  animation-name: shower_animation;
-  animation-duration: 4s;
-}
