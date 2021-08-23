@@ -10,11 +10,16 @@
  <head>
  <body>
   <h1>Tracking every change in position of the mouse</h1>
-  <h2 class="output"></h2>
+  <h2 id="output"></h2>
+  <h2 id="position1"></h2>
+  <h2 id="position2"></h2>
   <script>
      let counter = 0;
-     document.onmousemove = () => {
-        document.getElementsByClassName("output")[0].textContent = "Move " + counter++;
+     document.onmousemove = (event) => {
+        document.getElementById("output").textContent = "Move " + counter++;
+
+        document.getElementById("position1").textContent = "Page Position (x, y): (" + event.pageX + ", " + event.pageY + ")";
+        document.getElementById("position2").textContent = "Client Position (x, y): (" + event.clientX + ", " + event.clientY + ")";
      }
   </script>
  </body>
