@@ -1,9 +1,9 @@
 .first {
- background-image: linear-gradient(to right, red, yellow);
+ background-image: linear-gradient(to right, red, orange);
 }
 .second {
- background-image: linear-gradient(to right, blue, violet);
+ background-image: linear-gradient(to right, orange, yellow);
 }
 .third {
- background-image: linear-gradient(to right, green, blue);
+ background-image: linear-gradient(to right, yellow, green);
 }
