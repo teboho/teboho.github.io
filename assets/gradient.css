@@ -7,3 +7,12 @@
 .third {
  background-image: linear-gradient(to right, yellow, green);
 }
+.fourth {
+   background-image: linear-gradient(to right, green, blue);
+}
+.fifth {
+   background-image: linear-gradient(to right, blue, indigo);
+}
+.sixth {
+   background-image: linear-gradient(to right, indigo, violet);
+}
