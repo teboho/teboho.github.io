@@ -9,6 +9,13 @@
   <link rel="stylesheet" href="/assets/style.css"/>
  <head>
  <body>
-  <h1>Suhh</h1>
+  <h1>Tracking every change in position of the mouse</h1>
+  <h2 class="output"></h2>
+  <script>
+     let counter = 0;
+     document.onmousemove = () => {
+        document.getElementsByClassName("output")[0].textContent = "Move " + counter++;
+     }
+  </script>
  </body>
 </html>
