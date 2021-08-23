@@ -2,5 +2,5 @@
 body {
   width: 100px;
   height: 100vh 100%;
-  background-image: radial-gradient(red, orange, yellow);
+  background-image: radial-gradient(circle, red, orange, yellow);
 }
