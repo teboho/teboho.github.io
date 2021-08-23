@@ -13,7 +13,7 @@
 /* The element to apply the animation to */
 body {
   width: 100px;
-  height: 100vh 100px;
+  height: 100vh 100%;
   background-color: white;
   animation-name: example;
   animation-duration: 7s;
