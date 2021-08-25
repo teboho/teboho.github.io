@@ -9,7 +9,6 @@
       input, label {
          font-size: larger;
       }
-      .name {color: green}
    </style>
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
@@ -18,7 +17,7 @@
       <label for="name">Name: </label>
       <input ng-model="yourName" type="text" name="name" id="name" placeholder="Enter name here">
       <hr />
-      <h1>Hello <span class="name">{{yourName}}</span></h1>
+      <h1>Hello {{yourName}}</h1>
    </div>
 </body>
 </html>
