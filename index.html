@@ -9,14 +9,26 @@
       input, label {
          font-size: larger;
       }
+      .helloworld {
+         background-color: rgba(7, 148, 78, 0.267);
+
+         position: fixed;
+         bottom: 0px;
+         right: 0px;
+      }
    </style>
 </head>
 <body>
    <div id="root">
-      <label for="name">Name: </label>
-      <input type="text" name="name" id="name" placeholder="Enter name here" onkeyup="setName()">
-      <hr />
-      <h1 id="yourName">Hello </h1>
+      <nav>
+         <h1>A lot of things</h1>
+      </nav>
+      <div class="helloworld">
+         <label for="name">Name: </label>
+         <input type="text" name="name" id="name" placeholder="Enter name here" onkeyup="setName()">
+         <hr />
+         <h1 id="yourName">Hello </h1>
+      </div>
    </div>
    <script>
       let name = document.getElementById("name");
