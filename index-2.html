@@ -10,18 +10,14 @@
          font-size: larger;
       }
    </style>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 <body>
-   <div id="root">
+   <div ng-app id="root">
       <label for="name">Name: </label>
-      <input type="text" name="name" id="name" placeholder="Enter name here" onchange="setName()">
+      <input ng-model="yourName" type="text" name="name" id="name" placeholder="Enter name here">
       <hr />
-      <h1 id="yourName">Hello </h1>
+      <h1>Hello {{yourName}}</h1>
    </div>
-   <script>
-      let setName = () => {
-         document.getElementById("yourName").innerText = document.getElementById("name").value;
-      }   
-   </script>
 </body>
 </html>
