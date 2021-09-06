@@ -9,6 +9,7 @@
       body {
          background-image: linear-gradient(to right, red, orange);
       }
+      /* Position the box at the bottom */
       .helloworld {
          position: fixed;
          bottom: 1em; /* 1em = 16px */
@@ -35,12 +36,13 @@
          <label for="name">Name:</label>
          <input type="text" name="name" id="name" placeholder="Enter name here" onkeyup="setName()">
          <hr />
-         <p id="yourName">Hello </p>
+         <p id="yourName">Hello</p>
       </div>
    </div>
    <script>
       let name = document.getElementById("name");
       let theName = document.getElementById("yourName");
+      // The handler for name change
       let setName = () => {
          theName.textContent = "Hello " + name.value + ".";
       }
