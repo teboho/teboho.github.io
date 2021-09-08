@@ -8,6 +8,8 @@
    <style>
       body {
          background-image: linear-gradient(to right, red, orange);
+         line-height: 100%;
+         height: 100%;
       }
       /* Position the box at the bottom */
       .helloworld {
@@ -16,19 +18,19 @@
          right: 16px;
       }
       .helloworld {
-         border: 5px solid rgba(7, 188, 78, 0.267);
-         border-radius: 10px;
+         box-sizing: border-box;
+         padding: 10px;
          width: 15em;
-
-         padding: 2px;
-
-         background-color: grey;
+         background-color: rgb(172, 97, 97);
       }
       #name { 
          width: 45%;
       }
-      .noneshow {
-         display: none;
+      #root {
+         position: absolute;
+         top: 45%;
+         margin-left: auto;
+         margin-right: auto;
       }
    </style>
 </head>
@@ -36,13 +38,13 @@
    <div id="root">
       <nav>
          <h1>A lot of things</h1>
-      </nav>
-   </div>
-   <div class="helloworld" id="helloworld">
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" placeholder="Enter name here" onkeyup="setName()">
-      <hr />
-      <p id="yourName">Hello</p>
+      </nav>   
+      <div class="helloworld" id="helloworld">
+         <label for="name">Name:</label>
+         <input type="text" name="name" id="name" placeholder="Enter name here" onkeyup="setName()" onblur="setName()">
+         <hr />
+         <p id="yourName">Hello</p>
+      </div>
    </div>
    <script>
       let name = document.getElementById("name");
