@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Dropdowns</title>
+   <style>
+      body { background-color: gray;}
+      .heading {
+         border: 1px solid;
+         position: absolute;
+      }
+      .dropdown-content {
+         display: none;
+         position: absolute;
+         min-width: 100px;
+         box-shadow: 0 16px 16px 0 rgba(0, 0, 0, 0.3);
+         z-index: 1;
+      }
+      .dropdown:hover .dropdown-content {
+         display: block;
+      }
+      .dropdown-content a {
+         margin: 0;
+         display: block;
+         border: 1px solid;
+         padding: 10px;
+         text-align: center;
+      }
+      .dropdown-content a:hover {
+         background-color: brown;
+      }
+   </style>
+</head>
+<body>
+   <div class="heading dropdown">
+      <span>Dropdown</span>
+      <div class="dropdown-content">
+            <a>Home</a>
+            <a>About</a>
+            <a>Products</a>
+      </div>
+   </div>
+</body>
+</html>
