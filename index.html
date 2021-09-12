@@ -45,9 +45,19 @@
       nav {
          display: block;
       }
+      .note {
+         position: fixed;
+         top: 10px;
+         left: 10px;
+         width: 9em;
+         background-color: brown;
+      }
    </style>
 </head>
 <body>
+   <div class="note" id="note">
+      <p id="yourName">There are no rules, there's only restrictions.</p>
+   </div>
    <div class="container">
       <div id="root">
          <nav>
@@ -61,6 +71,7 @@
          <hr />
          <p id="yourName">Hello</p>
       </div>
+      
    </div>
    
    <script>
