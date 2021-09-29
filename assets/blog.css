@@ -1,12 +1,18 @@
+:root {
+   /* Theme */
+   --fore-color: #f5f5f5;
+   --back-color: #000000;
+}
 body {
    padding: 2em;
    height: 98vh;
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   color: var(--fore-color);
+   background-color: var(--back-color);
    background: linear-gradient(to bottom right, #ff0000, #ffa500);
 }
-
 div.post {
-   border: 0.3em solid black;
+   border: 0.3em solid var(--fore-color);
    border-radius: 5px;
 
    width: 60%;
@@ -15,5 +21,5 @@ div.post {
    margin-right: auto;
 }
 nav {
-   border-bottom: 1px solid black;
+   border-bottom: 1px solid var(--fore-color);
 }
