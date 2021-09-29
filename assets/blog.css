@@ -12,8 +12,9 @@ body {
    background: linear-gradient(to bottom right, #ff0000, #ffa500);
 }
 div.post {
-   border: 0.3em solid var(--fore-color);
+   border: 1px ridge var(--fore-color);
    border-radius: 5px;
+   padding: 3px;
 
    width: 60%;
    margin-top: 10px;
@@ -21,5 +22,5 @@ div.post {
    margin-right: auto;
 }
 nav {
-   border-bottom: 1px solid var(--fore-color);
+   border-bottom: 1px ridge var(--fore-color);
 }
