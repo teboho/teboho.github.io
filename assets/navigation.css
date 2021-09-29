@@ -16,3 +16,6 @@ li a {
 li a:hover {
    background: #771e1e;
 }
+ul { border: 1px ridge grey;}
+li { border-bottom: 1px solid grey;}
+li:last-child { border-bottom: none;}
