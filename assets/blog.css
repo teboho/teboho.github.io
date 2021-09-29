@@ -1,7 +1,7 @@
 body {
    padding: 2em;
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   background: linear-gradient(to bottom right, rgb(255, 0, 0), orange);
+   background: linear-gradient(to bottom right, #ff0000, #ffa500);
 }
 div.post {
    border: 0.3em solid black;
