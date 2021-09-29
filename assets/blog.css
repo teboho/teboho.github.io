@@ -7,7 +7,7 @@
 }
 body {
    padding: 2em;
-   height: 98vh;
+   height: 100vh 100%;
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
    color: var(--fore-color);
    background-color: var(--back-color);

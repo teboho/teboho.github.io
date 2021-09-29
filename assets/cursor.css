@@ -1,9 +1,10 @@
 body {
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   font-size: 10em;
-   height: 98vh;
+   /* font-size:  */
+   height: 100vh 100%;
    background: linear-gradient(to bottom right, #ff0000, #ffa500);
 }
+.anim { font-size: 10em;}
 @keyframes cursor {
    from 
    {
