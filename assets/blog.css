@@ -1,3 +1,7 @@
 body {
    padding: 2em;
 }
+div.post {
+   border: 0.3em solid px;
+   border-radius: 2px;
+}
