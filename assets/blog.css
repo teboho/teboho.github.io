@@ -5,4 +5,5 @@ div.post {
    border: 0.3em solid black;
    border-radius: 2px;
    width: 75%;
+   margin: 10px 0;
 }
