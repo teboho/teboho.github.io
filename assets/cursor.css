@@ -2,6 +2,7 @@ body {
    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
    height: 100vh;
    background: linear-gradient(to bottom right, #ff0000, #ffa500);
+   padding: 5em;
 }
 .anim { font-size: 10em;}
 @keyframes cursor {
