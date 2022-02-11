@@ -1,8 +1,7 @@
 # teboho.github.io
 
-> Although I'm at a good place with it, 
-> I'm having a hard time accepting JS as a full programming language,
-> to a point where I'm trying to convince myself that it is.
+> Although I'm at a good place with it, I'm having a hard time accepting JS as a full programming language, to a point where I'm trying to convince myself that it is.
+> 
 > So I'm working on that..
 
 * [JavaScript Class Example](/js-class-example)
