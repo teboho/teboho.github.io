@@ -5,11 +5,36 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Well, Hello!</title>
+   <style>
+      :root {
+         background: grey;
+      }
+   </style>
 </head>
 <body>
-   <h1>hahahahaha</h1>
-   <div>
-      <button>This a button</button>
+   <div id="root">
+      <h1>hahahahaha</h1>
+      <div>
+         <textarea name="output" id="output" cols="30" rows="10" contenteditable="false" style="font-size: larger; color: green;"></textarea>
+      </div>
+      <div>
+         <button id="button">This a button</button>
+      </div>
    </div>
+   <script>
+      let root = document.getElementById('root');
+      let output = document.getElementById('output');
+      let i = 0;
+      document.getElementById('button').onclick = (event) => {
+         if (i== 0) {
+            root.style.color = 'indigo';
+            i++;
+         } else {
+            root.style.color = 'red';
+            i--;
+         }
+         output.textContent = i;
+      }
+   </script>
 </body>
 </html>
