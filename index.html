@@ -19,7 +19,6 @@
          padding: 10px;
       }
    </style>
-   <script src="/recur.js"></script>
 </head>
 <body>
 
@@ -35,29 +34,7 @@
       <textarea name="output" id="_output" cols="90" rows="10" readonly></textarea>
    </fieldset>
    <iframe src="/recur.js" width="75%" frameborder="0"></iframe>
-   <script>
-      // let _input = document.getElementById('_input');
-      // let _output = document.getElementById('_output');
-      
-      // _input.onchange = _input.onkeypress = _input.onblur = _input.onkeyup = (ev) => {
-      //    let i = 0;
-      //    let j = _input.value.length;
-      //    name_arr = _input.value.split("");
-      //    reverse_recursion(name_arr, i, j);
-      //    _output.value = name_arr.join('');
-      // }
-      // let swap_positions = (arr, i, j) => {
-      //    let temp = arr[i];
-      //    arr[i] = arr[j];
-      //    arr[j] = temp;
-      // }
-      // let reverse_recursion = (arr, i, j) => {
-      //    if (i < j) {
-      //       swap_positions(arr, i, j);
-      //       reverse_recursion(arr, i+1, j-1);
-      //    }
-      //    return;
-      // }
+   <script src="/recur.js">
    </script>
 </body>
 </html>
