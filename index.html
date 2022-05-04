@@ -29,6 +29,9 @@
       iframe#source {
          color: white;
       }
+      textarea {
+         width: 100%;
+      }
    </style>
 </head>
 <body>
@@ -36,12 +39,12 @@
       <legend>Reverse with Recursion</legend>
       <label for="_input">Write something: </label>
       <br>
-      <textarea name="name" id="_input" cols="90" rows="10"></textarea>
+      <textarea name="name" id="_input" rows="10"></textarea>
       <br>
       <br>
       <label for="_output">Reversed:</label>
       <br>
-      <textarea name="output" id="_output" cols="90" rows="10" readonly></textarea>
+      <textarea name="output" id="_output" rows="10" readonly></textarea>
    </fieldset>
    <fieldset disabled="disabled" id="source">
       <legend>Running js</legend>
