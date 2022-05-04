@@ -1,10 +1,10 @@
-let _name = document.getElementById('_name');
+let _input = document.getElementById('_input');
 let _output = document.getElementById('_output');
 
-_name.onchange = _name.onkeypress = _name.onblur = _name.onkeyup = (ev) => {
+_input.onchange = _input.onkeypress = _input.onblur = _input.onkeyup = (ev) => {
    let i = 0;
-   let j = _name.value.length;
-   name_arr = _name.value.split("");
+   let j = _input.value.length;
+   name_arr = _input.value.split("");
    reverse_recursion(name_arr, i, j);
    _output.value = name_arr.join('');
 }
