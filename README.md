@@ -1,6 +1,6 @@
 # Teboho Makhalemele
       - IT Student at the University of Johannesburg
-      - [Linkedin](https://linkedin/in/askteboho)
+      - [Linkedin](https://linked.in/in/askteboho)
       
 ## Projects I've worked on
 1. TechFellows 
