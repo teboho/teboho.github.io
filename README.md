@@ -1,4 +1,5 @@
-<link href="/assets/stylesheets/style.css" rel="stylesheet"></link>
+<!-- Link to stylesheet -->
+<link href="assets/stylesheets/style.css" rel="stylesheet">
 
 ![FacebookDataCenter](/assets/images/Facebook010_data-center.jpg)
 
