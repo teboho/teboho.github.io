@@ -4,9 +4,9 @@
 - [Linkedin](https://www.linkedin.com/in/askteboho/)
       
 ## Projects I've worked on
-1. TechFellows 
+1. TechFellows (2022) 
       - [GitHub](https://github.com/teboho/TechFellows)
       - [Live Site](https://techfellows.azurewebsites.net)
-2. FullStackQnA 
+2. FullStackQnA (2022)
       - [GitHub](https://github.com/teboho/fullstackqna)
       - [Live Site](https://fullstackqna.web.app)
