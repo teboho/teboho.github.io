@@ -1,7 +1,4 @@
-<!-- Link to stylesheet -->
-<link href="assets/stylesheets/style.css" rel="stylesheet">
-
-![FacebookDataCenter](/assets/images/Facebook010_data-center.jpg)
+<img style="width: 20em;" src="assets/images/Facebook010_data-center.jpg" alt="Facebook Data center">
 
 # Teboho Makhalemele
 - IT Student at the [University of Johannesburg](https://uj.ac.za)
