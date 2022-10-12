@@ -1,3 +1,7 @@
+<link href="/assets/stylesheets/style.css" rel="stylesheet"></link>
+
+![FacebookDataCenter](/assets/images/Facebook010_data-center.jpg)
+
 # Teboho Makhalemele
 - IT Student at the [University of Johannesburg](https://uj.ac.za)
 - [GitHub](https://github.com/teboho)
