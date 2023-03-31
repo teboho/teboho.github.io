@@ -3,7 +3,6 @@
 # Teboho Makhalemele
 - IT Student at the [University of Johannesburg](https://www.uj.ac.za)
 - [GitHub](https://github.com/teboho)
-- [Linkedin](https://www.linkedin.com/in/askteboho/)
       
 ## Projects I've worked on
 1. TechFellows (2022) 
