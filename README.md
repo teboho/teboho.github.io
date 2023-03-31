@@ -2,6 +2,7 @@
 
 # Teboho Makhalemele
 > IT Student at the [University of Johannesburg](https://www.uj.ac.za)
+> 
 > [GitHub](https://github.com/teboho)
       
 ## Projects I've worked on
