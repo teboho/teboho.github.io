@@ -17,3 +17,6 @@
 3. JavaFXVideo (2023)
       > Java w/ JavaFX, runs locally as it's a desktop application
       - [GitHub](https://github.com/teboho/JavaFXVideo)
+4. Entelect Challenge IITPSA H-thon Solution (2023)
+      > Java console application, landed 6th on the leaderboard
+      - [GitHub](https://github.com/teboho/iitpsa2023)
