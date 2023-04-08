@@ -6,9 +6,14 @@
 > [GitHub](https://github.com/teboho)
       
 ## Projects I've worked on
-1. TechFellows (2022) 
+1. TechFellows (2022)
+      > ASP.Net MVC w/ Azure SQL & hosted on Microsoft Azure
       - GitHub is available on request as I work on securing the secrets (e.g. database server logins)
       - [Live Site](https://techfellows.azurewebsites.net)
 2. FullStackQnA (2022)
+      > Node.js + React w/ ASP.Net API + Azure SQL & hosted on Firebase + Microsoft Azure
       - [GitHub](https://github.com/teboho/fullstackqna)
       - [Live Site](https://fullstackqna.web.app)
+3. JavaFXVideo (2023)
+      > Java w/ JavaFX, runs locally as it's a desktop application
+      - [GitHub](https://github.com/teboho/JavaFXVideo)
