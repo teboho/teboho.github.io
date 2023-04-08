@@ -1,4 +1,4 @@
-<img style="width: 20em;" src="assets/images/Facebook010_data-center.jpg" alt="Facebook Data center">
+<img style="width: 25em;" src="assets/images/Facebook010_data-center.jpg" alt="Facebook Data center">
 
 # Teboho Makhalemele
 > IT Student at the [University of Johannesburg](https://www.uj.ac.za)
