@@ -8,7 +8,7 @@
 ## Personal Projects I've worked on
 1. TechFellows (2022)
       > C#, ASP.Net MVC w/ Azure SQL & hosted on Microsoft Azure
-      - [GitHub](ttps://github.com/teboho/TechFellows)
+      - [GitHub](https://github.com/teboho/TechFellows)
       - [Live Site](https://techfellows.azurewebsites.net)
 2. FullStackQnA (2022)
       > Node.js + React w/ C#, ASP.Net API + Azure SQL & hosted on Firebase + Microsoft Azure
