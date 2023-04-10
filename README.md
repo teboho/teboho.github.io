@@ -11,7 +11,7 @@
       - [GitHub](https://github.com/teboho/TechFellows)
       - [Live Site](https://techfellows.azurewebsites.net)
 2. FullStackQnA (2022)
-      > Node.js + React w/ C#, ASP.Net API + Azure SQL & hosted on Firebase + Microsoft Azure
+      > Node.js + React w/ C#, ASP.Net Core Rest API + Azure SQL & hosted on Firebase + Microsoft Azure
       - [GitHub](https://github.com/teboho/fullstackqna)
       - [Live Site](https://fullstackqna.web.app)
       - [ASP.Net Core API GitHub](https://github.com/teboho/FullstackQnA-API)
