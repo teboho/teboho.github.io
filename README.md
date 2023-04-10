@@ -14,6 +14,7 @@
       > Node.js + React w/ C#, ASP.Net API + Azure SQL & hosted on Firebase + Microsoft Azure
       - [GitHub](https://github.com/teboho/fullstackqna)
       - [Live Site](https://fullstackqna.web.app)
+      - [ASP.Net Core API GitHub](https://github.com/teboho/FullstackQnA-API)
 3. JavaFXVideo (2023)
       > Java w/ JavaFX, runs locally as it's a desktop application
       - [GitHub](https://github.com/teboho/JavaFXVideo)
