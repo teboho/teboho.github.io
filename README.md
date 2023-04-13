@@ -18,7 +18,7 @@
 3. Cat Fact (2023)
       > ASP.Net Core Razor App
       >> Consumes a random open API about cats, was made to demo how to consume a REST API on the web
-      - [GitHub](https://github.com/teboho/ConsumingRestWithANC)\
+      - [GitHub](https://github.com/teboho/ConsumingRestWithANC)
       - [Live Site](https://catfact.azurewebsites.net/)
 4. JavaFXVideo (2023)
       > Java w/ JavaFX, runs locally as it's a desktop application
