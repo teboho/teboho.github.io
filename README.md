@@ -15,9 +15,14 @@
       - [GitHub](https://github.com/teboho/fullstackqna)
       - [Live Site](https://fullstackqna.web.app)
       - [ASP.Net Core API GitHub](https://github.com/teboho/FullstackQnA-API)
-3. JavaFXVideo (2023)
+3. Cat Fact (2023)
+      > ASP.Net Core Razor App
+      >> Consumes a random open API about cats, was made to demo how to consume a REST API on the web
+      - [GitHub](https://github.com/teboho/ConsumingRestWithANC)\
+      - [Live Site](https://catfact.azurewebsites.net/)
+4. JavaFXVideo (2023)
       > Java w/ JavaFX, runs locally as it's a desktop application
       - [GitHub](https://github.com/teboho/JavaFXVideo)
-4. Entelect Challenge IITPSA H-thon Solution (2023)
+5. Entelect Challenge IITPSA H-thon Solution (2023)
       > Java console application, landed 6th on the leaderboard
       - [GitHub](https://github.com/teboho/iitpsa2023)
