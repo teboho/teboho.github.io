@@ -17,9 +17,7 @@
       - [ASP.Net Core API GitHub](https://github.com/teboho/FullstackQnA-API)
 3. Cat Fact (2023)
       > ASP.Net Core Razor App hosted on Microsoft Azure
-      >> Consumes a random open API about cats, was made to demo how to consume a REST API on the web
+      >> Consumes a random open API about cats, was made to demo how to consume an on the web REST API
       - [GitHub](https://github.com/teboho/ConsumingRestWithANC)
       - [Live Site](https://catfact.azurewebsites.net/)
-4. JavaFXVideo (2023)
-      > Java w/ JavaFX, runs locally as it's a desktop application
-      - [GitHub](https://github.com/teboho/JavaFXVideo)
+
