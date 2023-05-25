@@ -1,4 +1,4 @@
-<img style="width: 25em;" src="assets/images/Facebook010_data-center.jpg" alt="Facebook Data center">
+<img style="width: 30em;" src="assets/images/Facebook010_data-center.jpg" alt="Facebook Data center">
 
 # Teboho Makhalemele
 > IT Student at the [University of Johannesburg](https://www.uj.ac.za)
@@ -20,4 +20,6 @@
       >> Consumes a random open API about cats, was made to demo how to consume an on the web REST API
       - [GitHub](https://github.com/teboho/ConsumingRestWithANC)
       - [Live Site](https://catfact.azurewebsites.net/)
-
+4. Roll A Dice (2023)
+      > Android project. Learning how to use the drawer layout for navigation. Also how to change the menu on the fly. Also how to use the View Model.
+      - [GitHub](https://github.com/teboho/drawer-layout)
