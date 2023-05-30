@@ -26,4 +26,3 @@
 5. Chat With GPT (2023)
       > Android project.
       - [GitHub](https://github.com/teboho/chatgpt-client)
-      - [Android installer file](https://github.com/teboho/chatgpt-client/releases/tag/installer)
