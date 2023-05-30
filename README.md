@@ -23,3 +23,7 @@
 4. Roll A Dice (2023)
       > Android project. Learning how to use the drawer layout for navigation. Also how to change the menu on the fly. Also how to use the View Model.
       - [GitHub](https://github.com/teboho/drawer-layout)
+5. Chat With GPT (2023)
+      > Android project.
+      - [GitHub](https://github.com/teboho/chatgpt-client)
+      - [Android installer file](https://github.com/teboho/chatgpt-client/releases/tag/installer)
