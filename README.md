@@ -27,4 +27,4 @@
       > [Home](https://teboho.github.io/chatgpt-client)
       > Android project.
       - [GitHub](https://github.com/teboho/chatgpt-client)
-      - [Android installer file](https://github.com/teboho/chatgpt-client/releases/tag/installer)
+      - [Android installer file](https://github.com/teboho/chatgpt-client/releases)
