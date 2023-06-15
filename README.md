@@ -29,4 +29,5 @@
       - [GitHub](https://github.com/teboho/chatgpt-client)
       - [Android installer file](https://github.com/teboho/chatgpt-client/releases)
 6. How DStv can pivot (2023)
-      > [Webpage](/dstv-pivot)
+      > [Webpage](https://teboho.github.io/dstv-pivot)
+      - [GitHub](https://github.com/teboho/dstv-pivot)
