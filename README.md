@@ -31,3 +31,6 @@
 6. How DStv can pivot (2023)
       > [Webpage](https://teboho.github.io/dstv-pivot)
       - [GitHub](https://github.com/teboho/dstv-pivot)
+7. HTML Modal/Dialogs Tutorial (2023)
+      > [Webpage](https://teboho.github.io/dialogvsmodal)
+      > [GitHub](https://github.com/teboho/dialogvsmodal)
