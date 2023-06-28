@@ -24,10 +24,9 @@
       > Android project. Learning how to use the drawer layout for navigation. Also how to change the menu on the fly. Also how to use the View Model.
       - [GitHub](https://github.com/teboho/drawer-layout)
 5. Chat With GPT (2023)
-      > [Project Webpage](https://teboho.github.io/chatgpt-client)
+      > [Project Demo Webpage](https://teboho.github.io/chatgpt-client)
       > Android project.
       - [GitHub](https://github.com/teboho/chatgpt-client)
-      - [Android installer file](https://github.com/teboho/chatgpt-client/releases)
 6. How DStv can pivot (2023)
       > [Webpage](https://teboho.github.io/dstv-pivot)
       - [GitHub](https://github.com/teboho/dstv-pivot)
