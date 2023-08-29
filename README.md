@@ -1,11 +1,12 @@
+# Teboho
+
+> IT Student at the [University of Johannesburg](https://www.uj.ac.za)  
+> [GitHub](https://github.com/teboho)
+
 <img style="width: 30em;" src="assets/images/Facebook010_data-center.jpg" alt="Facebook Data center">
 
-# Teboho Makhalemele
-> IT Student at the [University of Johannesburg](https://www.uj.ac.za)
-> 
-> [GitHub](https://github.com/teboho)
-      
 ## Personal Projects I've worked on
+
 1. TechFellows (2022)
       > C#, ASP.Net MVC w/ Azure SQL & hosted on Microsoft Azure
       - [GitHub](https://github.com/teboho/TechFellows)
