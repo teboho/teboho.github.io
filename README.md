@@ -25,15 +25,19 @@
       > Android project. Learning how to use the drawer layout for navigation. Also how to change the menu on the fly. Also how to use the View Model.
       - [GitHub](https://github.com/teboho/drawer-layout)
 5. Chat With GPT (2023)
-      > [Project Demo Webpage](https://teboho.github.io/gpt-client)
       > Android project.
+      - [Project Demo Webpage](https://teboho.github.io/gpt-client)
       - [GitHub](https://github.com/teboho/gpt-client)
 6. How DStv can pivot (2023)
-      > [Webpage](https://teboho.github.io/dstv-pivot)
+      > A webpage that shows how DStv can pivot to an ISP company.
+      - [Webpage](https://teboho.github.io/dstv-pivot)
       - [GitHub](https://github.com/teboho/dstv-pivot)
 7. HTML Modal/Dialogs Tutorial (2023)
-      > [Webpage](https://teboho.github.io/dialogvsmodal)  
+      > A tutorial on how to use the HTML `<dialog>` element and what it actually is.
+      - [Webpage](https://teboho.github.io/dialogvsmodal)  
       - [GitHub](https://github.com/teboho/dialogvsmodal)  
 8. X (2023)
-      > [Webpage](https://teboho.github.io/x)  
+      > Custom android app for *Posting* image and text tweets using the twitter API.
+      > Uses keys and tokens generated from a twitter developer account. and OAuth 1.1
+      - [Webpage](https://teboho.github.io/x)  
       - [GitHub](https://github.com/teboho/x)
