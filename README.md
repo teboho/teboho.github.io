@@ -28,15 +28,11 @@
       > Android project.
       - [Project Demo Webpage](https://teboho.github.io/gpt-client)
       - [GitHub](https://github.com/teboho/gpt-client)
-6. How DStv can pivot (2023)
-      > A webpage that shows how DStv can pivot to an ISP company.
-      - [Webpage](https://teboho.github.io/dstv-pivot)
-      - [GitHub](https://github.com/teboho/dstv-pivot)
-7. HTML Modal/Dialogs Tutorial (2023)
+6. HTML Modal/Dialogs Tutorial (2023)
       > A tutorial on how to use the HTML `<dialog>` element and what it actually is.
       - [Webpage](https://teboho.github.io/dialogvsmodal)  
       - [GitHub](https://github.com/teboho/dialogvsmodal)  
-8. X (2023)
+7. X (2023)
       > Custom android app for *Posting* image and text tweets using the twitter API.
       > Uses keys and tokens generated from a twitter developer account. and OAuth 1.1
       - [Webpage](https://teboho.github.io/x)  
