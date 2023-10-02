@@ -31,7 +31,7 @@
       - [Project Demo Webpage](https://teboho.github.io/gpt-client)
       - [GitHub](https://github.com/teboho/gpt-client)
 6. HTML Modal/Dialogs Tutorial (2023)
-      > A tutorial by me on how to use the HTML `<dialog>` element and what it actually is.
+      > A tutorial on how to use the HTML `<dialog>` element and what it actually is.
       - [Webpage](https://teboho.github.io/dialogvsmodal)  
       - [GitHub](https://github.com/teboho/dialogvsmodal)  
 7. X (2023)
