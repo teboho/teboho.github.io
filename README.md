@@ -26,11 +26,12 @@
       - [GitHub](https://github.com/teboho/drawer-layout)
 5. Chat With GPT (2023)
       > GPT Android FrontEnd.
-      > > User can chat with *GPT 3.5* and also they can generate images from *Dall•E 2*
+      > > User can chat with *GPT 3.5* and also they can generate images from *Dall•E 2*  
+      > > Requires user to buy api credits from open ai when the free $5 ends
       - [Project Demo Webpage](https://teboho.github.io/gpt-client)
       - [GitHub](https://github.com/teboho/gpt-client)
 6. HTML Modal/Dialogs Tutorial (2023)
-      > A tutorial on how to use the HTML `<dialog>` element and what it actually is.
+      > A tutorial by me on how to use the HTML `<dialog>` element and what it actually is.
       - [Webpage](https://teboho.github.io/dialogvsmodal)  
       - [GitHub](https://github.com/teboho/dialogvsmodal)  
 7. X (2023)
