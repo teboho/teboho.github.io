@@ -25,7 +25,8 @@
       > Android project. Learning how to use the drawer layout for navigation. Also how to change the menu on the fly. Also how to use the View Model.
       - [GitHub](https://github.com/teboho/drawer-layout)
 5. Chat With GPT (2023)
-      > Android project.
+      > GPT Android FrontEnd.
+      > > User can chat with *GPT 3.5* and also they can generate images from *Dall•E 2*
       - [Project Demo Webpage](https://teboho.github.io/gpt-client)
       - [GitHub](https://github.com/teboho/gpt-client)
 6. HTML Modal/Dialogs Tutorial (2023)
