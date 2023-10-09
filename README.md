@@ -39,3 +39,4 @@
       > Uses keys and tokens generated from a twitter developer account. and OAuth 1.1
       - [Webpage](https://teboho.github.io/x)  
       - [GitHub](https://github.com/teboho/x)
+      - [Click here to download the android "apk" installer file](https://github.com/teboho/x/releases/download/8.10.2023-v0/TweetJava.apk)
