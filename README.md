@@ -1,6 +1,6 @@
 # Teboho
 
-> IT Student at the [University of Johannesburg](https://www.uj.ac.za)  
+> (Former) IT Student at the [University of Johannesburg](https://www.uj.ac.za)  
 > [GitHub](https://github.com/teboho)
 
 <img style="width: 30em;" src="assets/images/Facebook010_data-center.jpg" alt="Facebook Data center">
