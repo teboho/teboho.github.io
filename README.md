@@ -43,5 +43,5 @@
 8. <em>web</em>Musik (2024)
       > Search songs from Spotify
       > Uses keys and tokens generated from a twitter developer account. and OAuth 1.1
-      - [Live Site](https://spoti-fi.web.app/)  
-      - [GitHub](https://github.com/teboho/spoti-fi)
+      - [Live Site](https://webmusik.web.app/)  
+ 
