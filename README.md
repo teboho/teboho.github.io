@@ -1,6 +1,7 @@
 # Teboho
 
-> (Former) IT Student at the [University of Johannesburg](https://www.uj.ac.za)  
+> (Former) IT Student at the [University of Johannesburg](https://www.uj.ac.za)
+> Grad Dev 
 > [GitHub](https://github.com/teboho)
 
 <img style="width: 30em;" src="assets/images/Facebook010_data-center.jpg" alt="Facebook Data center">
@@ -43,6 +44,12 @@
 8. <em>web</em>Musik (2024)
       > Search, play songs and playlists from Spotify API
       > React frontend with Ant Design, does Authorization Code with PKCE Flow
+      > in order to use the live site, you have to be on the demo list, make a github issue on the repo to contact me for access!
       - [Live Site](https://webmusik.web.app/)  
-      - [GitHub](https://github.com/teboho/webMusik)  
+      - [GitHub](https://github.com/teboho/webMusik)   
+9. savvyshelf (2024)
+      > Library Management System
+      > next.js in TypeScript + ABP Framework for backend
+      - [Webpage](https://teboho.github.io/lms)  
+      - [GitHub](https://github.com/teboho/lms)
  
