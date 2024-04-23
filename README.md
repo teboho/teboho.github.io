@@ -1,7 +1,7 @@
 # Teboho
 
-> (Former) IT Student at the [University of Johannesburg](https://www.uj.ac.za)  
-> Grad Dev @ Boxfusion  
+> (Former) IT Student from the [University of Johannesburg](https://www.uj.ac.za)  
+> Grad Dev  
 > Check out [@shesha-io.shesha-framework](https://github.com/shesha-io/shesha-framework)  
 > [GitHub](https://github.com/teboho)
 
