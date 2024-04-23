@@ -1,7 +1,8 @@
 # Teboho
 
-> (Former) IT Student at the [University of Johannesburg](https://www.uj.ac.za)
-> Grad Dev 
+> (Former) IT Student at the [University of Johannesburg](https://www.uj.ac.za)  
+> Grad Dev @ Boxfusion  
+> Check out [@shesha-io.shesha-framework](https://github.com/shesha-io/shesha-framework)  
 > [GitHub](https://github.com/teboho)
 
 <img style="width: 30em;" src="assets/images/Facebook010_data-center.jpg" alt="Facebook Data center">
@@ -38,7 +39,7 @@
 7. X (2023)
       > Custom android app for *Posting* image and text tweets using the twitter API.
       > Uses keys and tokens generated from a twitter developer account. and OAuth 1.1
-      - [Webpage](https://teboho.github.io/x)  
+      - [Description Webpage](https://teboho.github.io/x)  
       - [GitHub](https://github.com/teboho/x)
       - [Click here to download the android "apk" installer file](https://github.com/teboho/x/releases/download/8.10.2023-v0/TweetJava.apk)  
 8. <em>web</em>Musik (2024)
@@ -50,6 +51,6 @@
 9. savvyshelf (2024)
       > Library Management System
       > next.js in TypeScript + ABP Framework for backend
-      - [Webpage](https://teboho.github.io/lms)  
+      - [Description Webpage](https://teboho.github.io/lms)  
       - [GitHub](https://github.com/teboho/lms)
  
