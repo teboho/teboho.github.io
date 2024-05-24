@@ -53,4 +53,7 @@
       > next.js in TypeScript + ABP Framework for backend
       - [Description Webpage](https://teboho.github.io/lms)  
       - [GitHub](https://github.com/teboho/lms)
- 
+10. HowTo (2024)
+      > next.js in TypeScript + Abp Framework for backend
+      - [Description Webpage](https://teboho.github.io/how-to)  
+      - [GitHub](https://github.com/teboho/how-to)
