@@ -45,7 +45,7 @@
 8. <em>web</em>Musik (2024)
       > Search, play songs and playlists from Spotify API
       > React frontend with Ant Design, does Authorization Code with PKCE Flow
-      > in order to use the live site, you have to be on the demo list, make a github issue on the repo to contact me for access!
+      > in order to use the live site, you have to be on the demo list, you also have to be using the spotify premium account. You can request access on the home page!
       - [Live Site](https://webmusik.web.app/)  
       - [GitHub](https://github.com/teboho/webMusik)   
 9. savvyshelf (2024)
