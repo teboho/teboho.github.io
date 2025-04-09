@@ -3,343 +3,428 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fertilization Simulation</title>
+    <title>3D Fertilization Simulation</title>
     <style>
         body {
+            margin: 0;
             font-family: sans-serif;
+            overflow: hidden; /* Prevent scrollbars */
+            background-color: #050510; /* Dark background */
+            color: #eee;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #fde0e0; /* Light pinkish background */
-            color: #333;
-            margin: 0;
-            overflow: hidden;
         }
-        #simulationCanvas {
-            border: 1px solid #c08080;
-            background-color: #ffe8e8; /* Slightly darker pink */
-            display: block; /* Prevents extra space below */
-            margin: 10px auto;
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            z-index: 100;
+            display: block;
+            background-color: rgba(0,0,0,0.5);
+            padding: 5px 0;
         }
-        #controls {
-            margin-top: 15px;
-        }
+        #controls { margin-top: 5px; }
         button {
             padding: 8px 15px;
             font-size: 1em;
             cursor: pointer;
-            background-color: #e89090;
-            color: white;
+            background-color: #4a4a6a;
+            color: #e0e0e0;
             border: none;
             border-radius: 5px;
             margin: 0 5px;
             transition: background-color 0.3s;
         }
-        button:hover {
-            background-color: #d87070;
-        }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        #status {
-            margin-top: 10px;
-            font-style: italic;
-            color: #666;
-            min-height: 1.2em;
-        }
+        button:hover { background-color: #5a5a7a; }
+        button:disabled { background-color: #333; color: #777; cursor: not-allowed; }
     </style>
 </head>
 <body>
-    <h1>Fertilization Simulation</h1>
-    <canvas id="simulationCanvas" width="600" height="400"></canvas>
-    <div id="controls">
-        <button id="startButton">Start Simulation</button>
-        <button id="resetButton" disabled>Reset</button>
+    <div id="info">
+        <h1>3D Fertilization Simulation</h1>
+        <p id="status">Status: Ready</p>
+        <div id="controls">
+            <button id="startButton">Start Simulation</button>
+            <button id="resetButton" disabled>Reset</button>
+        </div>
     </div>
-    <p id="status">Status: Ready</p>
+    <div id="container"></div>
 
-    <script>
-        const canvas = document.getElementById('simulationCanvas');
-        const ctx = canvas.getContext('2d');
+    <!-- Import Three.js Library -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        // Optional: Add OrbitControls for interaction
+        // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // --- Basic Setup ---
+        const container = document.getElementById('container');
         const statusElement = document.getElementById('status');
         const startButton = document.getElementById('startButton');
         const resetButton = document.getElementById('resetButton');
 
-        // --- Simulation Parameters ---
-        const SPERM_COUNT = 50;
-        const SPERM_SPEED_BASE = 1;
-        const SPERM_SPEED_VARIATION = 0.8;
-        const SPERM_SIZE_HEAD = 3;
-        const SPERM_SIZE_TAIL = 10;
-        const EGG_RADIUS = 40;
-        const EGG_POS = { x: canvas.width - EGG_RADIUS - 50, y: canvas.height / 2 };
-        const FERTILIZATION_ZONE_RADIUS = EGG_RADIUS + SPERM_SIZE_HEAD / 2; // Collision radius
-        const ZYGOTE_COLOR = '#ff8080'; // Color after fertilization
-        const ZYGOTE_NUCLEUS_COLOR = '#a00000';
-
-        // --- State Variables ---
-        let spermArray = [];
+        let scene, camera, renderer, clock;
+        let egg, spermArray = [], lights = {};
         let animationFrameId = null;
         let isSimulating = false;
         let isFertilized = false;
         let winnerSperm = null;
         let zygoteFormationProgress = 0; // 0 to 1
 
-        // --- Helper Functions ---
-        function getRandom(min, max) {
-            return Math.random() * (max - min) + min;
+        // --- Simulation Parameters ---
+        const SPERM_COUNT = 50;
+        const SPERM_SPEED = 0.3;
+        const SPERM_WIGGLE_SPEED = 15;
+        const SPERM_WIGGLE_AMOUNT = 0.15;
+        const SPERM_HEAD_RADIUS = 0.3;
+        const SPERM_TAIL_LENGTH = 2.5;
+        const EGG_RADIUS = 5;
+        const FERTILIZATION_DISTANCE = EGG_RADIUS + SPERM_HEAD_RADIUS; // Collision distance
+        const SCENE_BOUNDS = 40; // How far sperm can travel before being removed
+
+        const EGG_COLOR_INITIAL = 0xffcccc;
+        const EGG_COLOR_FERTILIZED = 0xffaacc; // Slightly different shade
+        const ZYGOTE_NUCLEUS_COLOR = 0xaa0055;
+        const SPERM_COLOR = 0xeeeeff;
+        const WINNER_SPERM_COLOR = 0xaaaaff; // Highlight winner slightly
+
+        function init() {
+            // Scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x050510, SCENE_BOUNDS * 0.8, SCENE_BOUNDS * 1.5); // Add fog for depth
+
+            // Clock
+            clock = new THREE.Clock();
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = SCENE_BOUNDS * 0.7; // Start zoomed out
+            camera.position.y = SCENE_BOUNDS * 0.1;
+            camera.lookAt(scene.position);
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setClearColor(0x050510); // Match body background
+            container.appendChild(renderer.domElement);
+
+            // Lights
+            lights.ambient = new THREE.AmbientLight(0x404060, 1.5); // Soft ambient light
+            scene.add(lights.ambient);
+            lights.directional = new THREE.DirectionalLight(0xffffff, 0.8);
+            lights.directional.position.set(5, 10, 7.5);
+            scene.add(lights.directional);
+
+            // Egg
+            const eggGeometry = new THREE.SphereGeometry(EGG_RADIUS, 32, 32);
+            const eggMaterial = new THREE.MeshPhongMaterial({
+                color: EGG_COLOR_INITIAL,
+                shininess: 30,
+                transparent: true,
+                opacity: 0.9
+            });
+            egg = new THREE.Mesh(eggGeometry, eggMaterial);
+            egg.position.set(0, 0, 0); // Center the egg
+            scene.add(egg);
+
+             // Optional: Inner nucleus (only visible when fertilized)
+            const nucleusGeo = new THREE.SphereGeometry(EGG_RADIUS * 0.3, 16, 16);
+            const nucleusMat = new THREE.MeshBasicMaterial({
+                color: ZYGOTE_NUCLEUS_COLOR,
+                transparent: true,
+                opacity: 0 // Start invisible
+            });
+            egg.nucleus = new THREE.Mesh(nucleusGeo, nucleusMat);
+            egg.add(egg.nucleus); // Add as child of egg
+
+            // Optional: Add controls to pan/zoom
+            // const controls = new OrbitControls(camera, renderer.domElement);
+            // controls.enableDamping = true;
+            // controls.dampingFactor = 0.05;
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize, false);
+            startButton.addEventListener('click', startSimulation);
+            resetButton.addEventListener('click', resetSimulation);
         }
 
-        // --- Drawing Functions ---
-        function drawEgg() {
-            // Outer membrane
-            ctx.beginPath();
-            ctx.arc(EGG_POS.x, EGG_POS.y, EGG_RADIUS, 0, Math.PI * 2);
-            ctx.fillStyle = isFertilized ? '#ffd0d0' : '#ffcccc'; // Slightly change color if fertilized
-            ctx.fill();
-            ctx.strokeStyle = '#e8a0a0';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
-            // Nucleus
-            ctx.beginPath();
-            ctx.arc(EGG_POS.x + EGG_RADIUS * 0.1, EGG_POS.y - EGG_RADIUS * 0.1, EGG_RADIUS * 0.3, 0, Math.PI * 2);
-            ctx.fillStyle = '#fca0a0';
-            ctx.fill();
-
-            // Fertilization effect / Zygote nucleus visual
-            if (isFertilized && zygoteFormationProgress > 0) {
-                ctx.beginPath();
-                // Growing merged nucleus
-                const nucleusRadius = EGG_RADIUS * 0.3 + (EGG_RADIUS * 0.2 * zygoteFormationProgress);
-                ctx.arc(EGG_POS.x, EGG_POS.y, nucleusRadius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(160, 0, 0, ${0.5 + 0.5 * zygoteFormationProgress})`; // Darker, fades in
-                ctx.fill();
-
-                 // Draw a thicker "zona pellucida" effect
-                 ctx.strokeStyle = `rgba(255, 128, 128, ${0.5 * zygoteFormationProgress})`;
-                 ctx.lineWidth = 4 + 4 * zygoteFormationProgress;
-                 ctx.stroke(); // Re-stroke the main egg circle
-            }
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        function drawSperm(sperm, time) {
-            // Head
-            ctx.beginPath();
-            ctx.arc(sperm.x, sperm.y, SPERM_SIZE_HEAD, 0, Math.PI * 2);
-            ctx.fillStyle = sperm.isWinner ? '#0000ff' : '#555599'; // Highlight winner
-             if (sperm.fading) {
-                ctx.fillStyle = `rgba(85, 85, 153, ${sperm.opacity})`;
-            }
-            ctx.fill();
-
-            // Tail - simple line with wiggle
-            const angle = Math.atan2(sperm.vy, sperm.vx);
-            const tailWiggle = Math.sin(time * 0.05 * sperm.speed + sperm.offset) * (Math.PI / 8); // Wiggle based on time, speed, and offset
-            const tailAngle = angle + Math.PI + tailWiggle; // Opposite direction + wiggle
-
-            ctx.beginPath();
-            ctx.moveTo(sperm.x, sperm.y);
-            ctx.lineTo(
-                sperm.x + Math.cos(tailAngle) * SPERM_SIZE_TAIL,
-                sperm.y + Math.sin(tailAngle) * SPERM_SIZE_TAIL
-            );
-            ctx.strokeStyle = sperm.isWinner ? '#0000ff' : '#555599';
-             if (sperm.fading) {
-                ctx.strokeStyle = `rgba(85, 85, 153, ${sperm.opacity})`;
-            }
-            ctx.lineWidth = 1;
-            ctx.stroke();
-        }
-
-        // --- Simulation Logic ---
         function createSperm() {
-            const y = getRandom(SPERM_SIZE_HEAD, canvas.height - SPERM_SIZE_HEAD);
-            const speed = SPERM_SPEED_BASE + getRandom(-SPERM_SPEED_VARIATION, SPERM_SPEED_VARIATION);
-            return {
-                x: -SPERM_SIZE_TAIL, // Start off-screen left
-                y: y,
-                vx: 0, // Velocity components
-                vy: 0,
-                speed: Math.max(0.2, speed), // Ensure minimum speed
-                offset: getRandom(0, Math.PI * 2), // For unique tail wiggle
-                isActive: true, // Still moving towards egg
+            const group = new THREE.Group();
+
+            // Head
+            const headGeometry = new THREE.SphereGeometry(SPERM_HEAD_RADIUS, 8, 8);
+            const headMaterial = new THREE.MeshPhongMaterial({ color: SPERM_COLOR, shininess: 50 });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            group.add(head);
+
+            // Tail (Simple Cylinder)
+            const tailGeometry = new THREE.CylinderGeometry(SPERM_HEAD_RADIUS * 0.2, SPERM_HEAD_RADIUS * 0.1, SPERM_TAIL_LENGTH, 6);
+            const tailMaterial = new THREE.MeshPhongMaterial({ color: SPERM_COLOR, shininess: 20 });
+            const tail = new THREE.Mesh(tailGeometry, tailMaterial);
+            tail.position.z = -SPERM_TAIL_LENGTH / 2 - SPERM_HEAD_RADIUS * 0.5; // Position behind head
+            tail.rotation.x = Math.PI / 2; // Align cylinder along Z axis of group
+            group.add(tail);
+
+            // Position sperm randomly on a plane far away
+            const distance = SCENE_BOUNDS * 0.8;
+            const angle = Math.random() * Math.PI * 2;
+            const yAngle = (Math.random() - 0.5) * Math.PI * 0.8; // Spread vertically a bit
+
+            group.position.x = Math.cos(angle) * Math.cos(yAngle) * distance;
+            group.position.y = Math.sin(yAngle) * distance;
+            group.position.z = Math.sin(angle) * Math.cos(yAngle) * distance;
+
+            // Initial orientation towards the egg
+            group.lookAt(egg.position);
+
+            // Store custom data
+            group.userData = {
+                velocity: group.getWorldDirection(new THREE.Vector3()).multiplyScalar(SPERM_SPEED),
+                speed: SPERM_SPEED * (0.8 + Math.random() * 0.4), // Add speed variation
+                isActive: true,
                 isWinner: false,
                 fading: false,
-                opacity: 1
+                wiggleOffset: Math.random() * Math.PI * 2,
+                head: head,
+                tail: tail
             };
+
+            spermArray.push(group);
+            scene.add(group);
         }
 
-        function updateSperm(sperm) {
-            if (!sperm.isActive) {
-                 if (sperm.fading) {
-                    sperm.opacity -= 0.01; // Fade out speed
-                    if (sperm.opacity <= 0) sperm.opacity = 0;
+        function updateSperm(sperm, delta, time) {
+            const data = sperm.userData;
+            if (!data.isActive) {
+                if (data.fading) {
+                    // Fade out material opacity
+                    const headMat = data.head.material;
+                    const tailMat = data.tail.material;
+                    if (headMat.opacity > 0) {
+                        headMat.transparent = true; // Ensure transparency is enabled
+                        tailMat.transparent = true;
+                        headMat.opacity -= 0.5 * delta; // Fade speed
+                        tailMat.opacity -= 0.5 * delta;
+                    } else {
+                        // Remove if fully faded
+                         if (sperm.parent) {
+                             scene.remove(sperm);
+                             // Consider removing from spermArray too for performance, needs careful index handling
+                         }
+                    }
                 }
-                return; // Don't move if inactive or fertilized
+                return; // Don't move if inactive
             }
 
-            // Calculate vector towards egg center
-            const dx = EGG_POS.x - sperm.x;
-            const dy = EGG_POS.y - sperm.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            // --- Movement ---
+            // Calculate direction towards egg
+            const directionToEgg = egg.position.clone().sub(sperm.position).normalize();
 
-            // Simple directional movement + slight randomness
-            const angleToEgg = Math.atan2(dy, dx);
-            const randomAngleVariation = getRandom(-Math.PI / 16, Math.PI / 16); // Add wobble
-            const moveAngle = angleToEgg + randomAngleVariation;
+            // Add some random "searching" wobble perpendicular to the main direction
+            const wobble = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).multiplyScalar(0.1);
+            const targetDirection = directionToEgg.add(wobble).normalize();
 
-            // Update velocity (normalized direction * speed)
-            sperm.vx = Math.cos(moveAngle) * sperm.speed;
-            sperm.vy = Math.sin(moveAngle) * sperm.speed;
+            // Simple velocity update towards target (could be more complex physics)
+            data.velocity.lerp(targetDirection.multiplyScalar(data.speed), 0.05); // Smoothly blend towards target direction
 
             // Update position
-            sperm.x += sperm.vx;
-            sperm.y += sperm.vy;
+            sperm.position.addScaledVector(data.velocity, delta);
 
-            // Collision check
-            if (!isFertilized && distance < FERTILIZATION_ZONE_RADIUS) {
+            // Rotate sperm to face movement direction (or towards egg)
+            sperm.lookAt(sperm.position.clone().add(data.velocity)); // Look slightly ahead
+
+            // --- Tail Wiggle ---
+            const wiggleAngle = Math.sin(time * SPERM_WIGGLE_SPEED + data.wiggleOffset) * SPERM_WIGGLE_AMOUNT;
+            // Wiggle tail around the sperm's local X-axis (or Y depending on orientation)
+            data.tail.rotation.y = wiggleAngle; // Wiggle side to side relative to sperm body
+
+             // --- Collision Check ---
+            const distanceToEgg = sperm.position.distanceTo(egg.position);
+
+            if (!isFertilized && distanceToEgg < FERTILIZATION_DISTANCE) {
                 isFertilized = true;
                 winnerSperm = sperm;
-                sperm.isWinner = true;
-                sperm.isActive = false; // Winner stops at the edge
-                sperm.x = EGG_POS.x - Math.cos(angleToEgg) * EGG_RADIUS; // Place on egg edge
-                sperm.y = EGG_POS.y - Math.sin(angleToEgg) * EGG_RADIUS;
+                data.isWinner = true;
+                data.isActive = false; // Winner stops moving
+
+                // Position winner precisely on egg surface
+                const surfaceDirection = sperm.position.clone().sub(egg.position).normalize();
+                sperm.position.copy(egg.position).addScaledVector(surfaceDirection, EGG_RADIUS + SPERM_HEAD_RADIUS * 0.5);
+                sperm.lookAt(egg.position); // Point head towards egg center
 
                 statusElement.textContent = "Status: Fertilization! Forming zygote...";
+                egg.material.color.setHex(EGG_COLOR_FERTILIZED); // Change egg color immediately
+
+                 // Make winner distinct (optional)
+                 data.head.material.color.setHex(WINNER_SPERM_COLOR);
+                 data.tail.material.color.setHex(WINNER_SPERM_COLOR);
+
+                // Trigger fertilization effect (e.g., simple scale pulse)
+                egg.scale.set(1.1, 1.1, 1.1);
+                setTimeout(() => egg.scale.set(1, 1, 1), 150); // Scale back down
 
                 // Stop other sperm and make them fade
                 spermArray.forEach(s => {
                     if (s !== winnerSperm) {
-                        s.isActive = false;
-                        s.fading = true;
+                        s.userData.isActive = false;
+                        s.userData.fading = true;
+                         // Reset opacity for fading effect
+                        s.userData.head.material.opacity = 1.0;
+                        s.userData.tail.material.opacity = 1.0;
                     }
                 });
             }
 
-            // Deactivate sperm far past the egg
-            if (sperm.x > canvas.width + SPERM_SIZE_TAIL) {
-                sperm.isActive = false;
-            }
-             // Deactivate sperm hitting top/bottom
-            if (sperm.y < 0 || sperm.y > canvas.height) {
-                 sperm.isActive = false;
-                 sperm.fading = true; // Make them fade if they hit walls
+            // Remove sperm that travel too far
+            if (sperm.position.length() > SCENE_BOUNDS * 1.2) { // Check distance from origin
+                data.isActive = false;
+                data.fading = true; // Make them fade out if they go too far
+                 data.head.material.opacity = 1.0;
+                 data.tail.material.opacity = 1.0;
             }
         }
 
 
-        function gameLoop(timestamp) {
-            // Clear canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function animate() {
+            animationFrameId = requestAnimationFrame(animate);
 
-            // Draw Egg / Zygote
-            drawEgg();
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
 
-            // Update and Draw Sperm
+             if (!isSimulating) return; // Don't update if paused/stopped
+
             let activeSpermCount = 0;
-            spermArray.forEach(sperm => {
-                if(sperm.opacity > 0) { // Only update/draw if visible
-                    if (!isFertilized || sperm.isWinner || sperm.fading) {
-                       updateSperm(sperm);
-                       drawSperm(sperm, timestamp);
-                    }
-                    if(sperm.isActive) activeSpermCount++;
-                }
-            });
+            // Update sperm (iterate backwards if removing elements)
+            for (let i = spermArray.length - 1; i >= 0; i--) {
+                const sperm = spermArray[i];
+                 updateSperm(sperm, delta, time);
+                 if(sperm.userData.isActive) {
+                     activeSpermCount++;
+                 }
+                 // Check if sperm should be removed entirely (fully faded)
+                 if(sperm.userData.fading && sperm.userData.head.material.opacity <= 0 && !sperm.parent) {
+                     spermArray.splice(i, 1); // Remove from array if removed from scene
+                 }
+            }
 
-             // Update Zygote Formation
+            // Update Zygote Formation
             if (isFertilized && zygoteFormationProgress < 1) {
-                zygoteFormationProgress += 0.005; // Speed of zygote visual change
-                if (zygoteFormationProgress >= 1) {
-                    zygoteFormationProgress = 1;
-                    if (!statusElement.textContent.includes("complete")) {
-                        statusElement.textContent = "Status: Zygote formation complete.";
-                    }
-                     // Optionally fade winner sperm after zygote forms
-                    if (winnerSperm && !winnerSperm.fading) {
-                         //winnerSperm.fading = true; // Uncomment to make winner fade
-                    }
+                zygoteFormationProgress += 0.5 * delta; // Speed of zygote visual change
+                 if (zygoteFormationProgress > 1) zygoteFormationProgress = 1;
+
+                 // Make nucleus visible and grow slightly
+                 const nucleusProgress = THREE.MathUtils.smoothstep(zygoteFormationProgress, 0, 1);
+                 egg.nucleus.material.opacity = nucleusProgress * 0.8; // Fade in nucleus
+                 egg.nucleus.scale.setScalar(1.0 + nucleusProgress * 0.5); // Grow nucleus
+
+                if (zygoteFormationProgress >= 1 && !statusElement.textContent.includes("complete")) {
+                    statusElement.textContent = "Status: Zygote formation complete.";
                 }
             }
 
-            // Stop simulation if no active sperm and not fertilized, or after zygote formed
-             const simulationEnded = (activeSpermCount === 0 && !isFertilized) || (isFertilized && zygoteFormationProgress >= 1);
+             // Stop simulation conditions
+             const simulationShouldEnd = (activeSpermCount === 0 && !isFertilized) || (isFertilized && zygoteFormationProgress >= 1);
 
-            if (isSimulating && !simulationEnded) {
-                 animationFrameId = requestAnimationFrame(gameLoop);
-            } else if (isSimulating && simulationEnded && !statusElement.textContent.includes("complete") && !isFertilized) {
-                 statusElement.textContent = "Status: Simulation ended. No fertilization.";
-                 isSimulating = false;
-                 resetButton.disabled = false; // Allow reset
-            } else if (isSimulating && simulationEnded && isFertilized) {
-                 // Already handled zygote formation complete message
-                 isSimulating = false;
-                 resetButton.disabled = false; // Allow reset
-            } else {
-                 isSimulating = false; // Ensure state is correct if stopped early
+            if (simulationShouldEnd) {
+                isSimulating = false;
+                resetButton.disabled = false; // Allow reset
+                if(!isFertilized && !statusElement.textContent.includes("complete")) {
+                    statusElement.textContent = "Status: Simulation ended. No fertilization.";
+                }
+                // Zygote complete message handled above
             }
+
+
+            // Optional: update controls if using OrbitControls
+            // controls.update();
+
+            renderer.render(scene, camera);
         }
 
-        // --- Control Functions ---
         function startSimulation() {
-            if (isSimulating) return;
+             if (isSimulating) return;
+             resetSimulation(false); // Reset state without clearing scene immediately
 
-            resetSimulationState(); // Clear previous state if any
+             isSimulating = true;
+             startButton.disabled = true;
+             resetButton.disabled = true;
+             statusElement.textContent = "Status: Simulation running...";
 
-            isSimulating = true;
-            startButton.disabled = true;
-            resetButton.disabled = true; // Disable reset during run
-            statusElement.textContent = "Status: Simulation running...";
+             // Create initial sperm
+             for (let i = 0; i < SPERM_COUNT; i++) {
+                 createSperm();
+             }
 
-            // Create initial sperm
-            for (let i = 0; i < SPERM_COUNT; i++) {
-                spermArray.push(createSperm());
-            }
+             // Start animation loop if not already running
+             if (animationFrameId === null) {
+                 animate();
+             }
+         }
 
-            // Cancel any previous loop and start anew
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-            animationFrameId = requestAnimationFrame(gameLoop);
-        }
+         function resetSimulation(clearSceneContent = true) {
+             // Stop animation logic
+             isSimulating = false; // Stop updates in the loop
 
-        function resetSimulationState() {
-             // Stop the animation loop
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-                animationFrameId = null;
-            }
-
-            // Clear data
-            spermArray = [];
-            isSimulating = false;
-            isFertilized = false;
-            winnerSperm = null;
-            zygoteFormationProgress = 0;
-
-             // Reset UI elements
-            startButton.disabled = false;
-            resetButton.disabled = true;
-            statusElement.textContent = "Status: Ready";
-
-            // Clear canvas and redraw initial state (just the egg)
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawEgg();
-        }
+             if(clearSceneContent) {
+                 // Stop the animation loop completely if resetting fully
+                 if (animationFrameId) {
+                     cancelAnimationFrame(animationFrameId);
+                     animationFrameId = null;
+                 }
+                 // Remove existing sperm from scene and array
+                 spermArray.forEach(sperm => {
+                     if (sperm.parent) scene.remove(sperm);
+                     // Clean up geometry and materials if needed (more advanced)
+                 });
+                 spermArray = [];
+             }
 
 
-        // --- Event Listeners ---
-        startButton.addEventListener('click', startSimulation);
-        resetButton.addEventListener('click', resetSimulationState);
+             // Reset state variables
+             isFertilized = false;
+             winnerSperm = null;
+             zygoteFormationProgress = 0;
 
-        // --- Initial Draw ---
-        window.onload = () => {
-            drawEgg(); // Draw the initial egg when the page loads
-        };
+             // Reset egg appearance
+             if (egg) {
+                 egg.material.color.setHex(EGG_COLOR_INITIAL);
+                 egg.nucleus.material.opacity = 0;
+                 egg.nucleus.scale.setScalar(1.0);
+                 egg.scale.set(1, 1, 1);
+             }
+
+             // Reset UI
+             startButton.disabled = false;
+             resetButton.disabled = true;
+             statusElement.textContent = "Status: Ready";
+
+             // Render one frame of the reset state if clearing content
+             if (clearSceneContent && renderer) {
+                 renderer.render(scene, camera);
+             }
+         }
+
+        // --- Run ---
+        init();
+        // Render the initial state (just the egg)
+        renderer.render(scene, camera);
 
     </script>
 </body>
