@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation: The Parting</title>
+    <style>
+        /* CSS styles previously in style.css */
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #1a1a2e; /* Dark background */
+            color: #e0e0e0;
+            margin: 0;
+            overflow: hidden; /* Hide anything that goes off screen */
+        }
+
+        #simulation-container {
+            width: 300px;
+            height: 400px;
+            border: 1px dashed #4a4a6a;
+            margin-top: 20px;
+            position: relative; /* Crucial for positioning children */
+            background-color: #2a2a4a;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        #body-outline {
+            width: 100px;
+            height: 200px;
+            border: 2px solid #7a7a9a;
+            border-radius: 50px / 100px; /* Simple oval shape */
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.8;
+            transition: opacity 3s ease-out; /* Allow fading */
+        }
+
+        #soul {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle,
+                rgba(255, 255, 255, 0.9) 0%,  /* Bright center */
+                rgba(180, 220, 255, 0.7) 50%, /* Bluish glow */
+                rgba(150, 200, 255, 0) 70%   /* Fading edge */
+            );
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            bottom: 110px; /* Start roughly centered in the body */
+            transform: translateX(-50%);
+            opacity: 0; /* Start invisible */
+            box-shadow: 0 0 15px rgba(200, 220, 255, 0.6);
+
+            /* Animation will be controlled by JS */
+            animation-duration: 8s; /* Total duration of the ascent */
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards; /* Stay at the end state */
+            animation-play-state: paused; /* Don't run initially */
+        }
+
+        /* Define the animation */
+        @keyframes ascend {
+            0% {
+                opacity: 0;
+                bottom: 110px; /* Start position */
+            }
+            15% {
+                opacity: 0.9; /* Fade in */
+                bottom: 120px; /* Slight initial rise */
+            }
+            85% {
+                opacity: 0.7;
+                bottom: 420px; /* Ascend high (above container) */
+            }
+            100% {
+                opacity: 0; /* Fade out */
+                bottom: 450px;
+            }
+        }
+
+        /* Add classes for state changes */
+        .soul-visible {
+            opacity: 0.9; /* Make visible when needed */
+        }
+
+        .soul-ascending {
+            animation-name: ascend;
+            animation-play-state: running;
+        }
+
+        .body-fading {
+            opacity: 0.4;
+        }
+
+        .body-empty {
+            opacity: 0.2;
+            border-style: dotted;
+        }
+
+        #status {
+            margin-top: 20px;
+            font-style: italic;
+            color: #aaa;
+            height: 1.2em; /* Prevent layout shift */
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #4a4a6a;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a5a7a;
+        }
+
+        button:disabled {
+            background-color: #333;
+            color: #777;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simulation: The Parting</h1>
+    <div id="simulation-container">
+        <div id="body-outline"></div>
+        <div id="soul"></div>
+    </div>
+    <p id="status">Status: Quiescent</p>
+    <button id="start-button">Begin Transition</button>
+
+    <script>
+        // JavaScript code previously in script.js
+        const soulElement = document.getElementById('soul');
+        const bodyElement = document.getElementById('body-outline');
+        const statusElement = document.getElementById('status');
+        const startButton = document.getElementById('start-button');
+
+        function runSimulation() {
+            // Disable button during simulation
+            startButton.disabled = true;
+            startButton.textContent = "Transitioning...";
+
+            // Reset styles if run again (though button is disabled)
+            soulElement.style.animation = 'none'; // Clear previous animation styles
+            soulElement.offsetHeight; // Trigger reflow to reset properly
+            soulElement.style.animation = ''; // Re-add default animation properties from CSS
+            soulElement.classList.remove('soul-visible', 'soul-ascending');
+            bodyElement.classList.remove('body-fading', 'body-empty');
+            soulElement.style.opacity = '0'; // Ensure it's hidden initially
+            bodyElement.style.opacity = '0.8'; // Reset body opacity
+
+            statusElement.textContent = "Status: Stillness deepens...";
+
+            // Sequence of events using setTimeout
+            setTimeout(() => {
+                statusElement.textContent = "Status: Connection loosens...";
+                soulElement.classList.add('soul-visible'); // Soul appears faintly
+                bodyElement.classList.add('body-fading'); // Body starts fading
+            }, 2000); // 2 seconds after start
+
+            setTimeout(() => {
+                statusElement.textContent = "Status: Separation begins...";
+                soulElement.classList.add('soul-ascending'); // Start the animation
+            }, 4000); // 4 seconds after start
+
+            setTimeout(() => {
+                statusElement.textContent = "Status: Ascending...";
+                // Animation is already running
+            }, 6000); // 6 seconds after start
+
+            setTimeout(() => {
+                statusElement.textContent = "Status: Moving beyond...";
+                bodyElement.classList.add('body-empty'); // Body fades significantly
+            }, 9000); // 9 seconds after start (during animation)
+
+            setTimeout(() => {
+                statusElement.textContent = "Status: Transition Complete.";
+                // Animation finishes on its own due to 'forwards' fill mode
+                // Optionally re-enable the button if you want it runnable again
+                // startButton.disabled = false;
+                // startButton.textContent = "Begin Transition";
+            }, 13000); // 13 seconds after start (after animation duration + buffer)
+        }
+
+        // Add event listener to the button
+        startButton.addEventListener('click', runSimulation);
+
+        // Optional: Run automatically on load (remove the // below)
+        // window.addEventListener('load', runSimulation);
+    </script>
+</body>
+</html>
