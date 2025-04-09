@@ -3,47 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Fertilization Simulation</title>
+    <title>3D Fertilization & Mitosis Simulation</title>
     <style>
-        body {
-            margin: 0;
-            font-family: sans-serif;
-            overflow: hidden; /* Prevent scrollbars */
-            background-color: #050510; /* Dark background */
-            color: #eee;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #info {
-            position: absolute;
-            top: 10px;
-            width: 100%;
-            text-align: center;
-            z-index: 100;
-            display: block;
-            background-color: rgba(0,0,0,0.5);
-            padding: 5px 0;
-        }
+        body { margin: 0; font-family: sans-serif; overflow: hidden; background-color: #050510; color: #eee; display: flex; flex-direction: column; align-items: center; }
+        #info { position: absolute; top: 10px; width: 100%; text-align: center; z-index: 100; display:block; background-color: rgba(0,0,0,0.6); padding: 5px 0; }
+        h1 { margin: 5px 0; }
         #controls { margin-top: 5px; }
-        button {
-            padding: 8px 15px;
-            font-size: 1em;
-            cursor: pointer;
-            background-color: #4a4a6a;
-            color: #e0e0e0;
-            border: none;
-            border-radius: 5px;
-            margin: 0 5px;
-            transition: background-color 0.3s;
-        }
+        button { padding: 8px 15px; font-size: 0.9em; cursor: pointer; background-color: #4a4a6a; color: #e0e0e0; border: none; border-radius: 5px; margin: 0 5px; transition: background-color 0.3s; }
         button:hover { background-color: #5a5a7a; }
         button:disabled { background-color: #333; color: #777; cursor: not-allowed; }
+        #status { margin-top: 5px; font-style: italic; min-height: 1.2em;}
     </style>
 </head>
 <body>
     <div id="info">
-        <h1>3D Fertilization Simulation</h1>
+        <h1>3D Fertilization & Mitosis</h1>
         <p id="status">Status: Ready</p>
         <div id="controls">
             <button id="startButton">Start Simulation</button>
@@ -64,8 +38,6 @@
 
     <script type="module">
         import * as THREE from 'three';
-        // Optional: Add OrbitControls for interaction
-        // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
         // --- Basic Setup ---
         const container = document.getElementById('container');
@@ -75,85 +47,123 @@
 
         let scene, camera, renderer, clock;
         let egg, spermArray = [], lights = {};
+        let chromosomeMeshes = [], daughterCells = []; // For Mitosis
         let animationFrameId = null;
+
+        // --- State Variables ---
         let isSimulating = false;
         let isFertilized = false;
         let winnerSperm = null;
         let zygoteFormationProgress = 0; // 0 to 1
+        let mitosisState = 'NONE'; // NONE, PROPHASE, METAPHASE, ANAPHASE, TELOPHASE, COMPLETE
+        let mitosisProgress = 0; // 0 to 1 for the current stage
 
         // --- Simulation Parameters ---
-        const SPERM_COUNT = 50;
+        const SPERM_COUNT = 40; // Reduced slightly for performance
         const SPERM_SPEED = 0.3;
         const SPERM_WIGGLE_SPEED = 15;
         const SPERM_WIGGLE_AMOUNT = 0.15;
         const SPERM_HEAD_RADIUS = 0.3;
         const SPERM_TAIL_LENGTH = 2.5;
-        const EGG_RADIUS = 5;
-        const FERTILIZATION_DISTANCE = EGG_RADIUS + SPERM_HEAD_RADIUS; // Collision distance
-        const SCENE_BOUNDS = 40; // How far sperm can travel before being removed
+        const EGG_RADIUS = 6; // Slightly larger egg
+        const FERTILIZATION_DISTANCE = EGG_RADIUS + SPERM_HEAD_RADIUS;
+        const SCENE_BOUNDS = 45;
 
         const EGG_COLOR_INITIAL = 0xffcccc;
-        const EGG_COLOR_FERTILIZED = 0xffaacc; // Slightly different shade
+        const EGG_COLOR_FERTILIZED = 0xffaacc;
         const ZYGOTE_NUCLEUS_COLOR = 0xaa0055;
         const SPERM_COLOR = 0xeeeeff;
-        const WINNER_SPERM_COLOR = 0xaaaaff; // Highlight winner slightly
+        const WINNER_SPERM_COLOR = 0xccccff;
+        const CHROMOSOME_COLOR = 0xffee88; // Yellowish
+        const DAUGHTER_CELL_COLOR = 0xffdddd;
+
+        // Mitosis Parameters
+        const NUM_CHROMOSOMES = 8; // Simplified representation
+        const CHROMOSOME_RADIUS = 0.2;
+        const PROPHASE_DURATION = 4.0; // Seconds
+        const METAPHASE_DURATION = 4.0;
+        const ANAPHASE_DURATION = 3.0;
+        const TELOPHASE_DURATION = 5.0;
+        const POLE_DISTANCE_FACTOR = 0.6; // How far chromosomes move towards poles (relative to egg radius)
+
 
         function init() {
-            // Scene
             scene = new THREE.Scene();
-            scene.fog = new THREE.Fog(0x050510, SCENE_BOUNDS * 0.8, SCENE_BOUNDS * 1.5); // Add fog for depth
-
-            // Clock
+            scene.fog = new THREE.Fog(0x050510, SCENE_BOUNDS * 0.7, SCENE_BOUNDS * 1.5);
             clock = new THREE.Clock();
 
-            // Camera
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = SCENE_BOUNDS * 0.7; // Start zoomed out
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = SCENE_BOUNDS * 0.6;
             camera.position.y = SCENE_BOUNDS * 0.1;
             camera.lookAt(scene.position);
 
-            // Renderer
             renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setClearColor(0x050510); // Match body background
+            renderer.setClearColor(0x050510);
             container.appendChild(renderer.domElement);
 
-            // Lights
-            lights.ambient = new THREE.AmbientLight(0x404060, 1.5); // Soft ambient light
+            lights.ambient = new THREE.AmbientLight(0x404060, 1.8);
             scene.add(lights.ambient);
-            lights.directional = new THREE.DirectionalLight(0xffffff, 0.8);
+            lights.directional = new THREE.DirectionalLight(0xffffff, 1.0);
             lights.directional.position.set(5, 10, 7.5);
             scene.add(lights.directional);
 
             // Egg
-            const eggGeometry = new THREE.SphereGeometry(EGG_RADIUS, 32, 32);
+            const eggGeometry = new THREE.SphereGeometry(EGG_RADIUS, 32, 24);
             const eggMaterial = new THREE.MeshPhongMaterial({
                 color: EGG_COLOR_INITIAL,
-                shininess: 30,
+                shininess: 20,
                 transparent: true,
-                opacity: 0.9
+                opacity: 0.8,
+                side: THREE.DoubleSide // Render inside for mitosis view
             });
             egg = new THREE.Mesh(eggGeometry, eggMaterial);
-            egg.position.set(0, 0, 0); // Center the egg
             scene.add(egg);
 
-             // Optional: Inner nucleus (only visible when fertilized)
+            // Zygote Nucleus (initially hidden within egg)
             const nucleusGeo = new THREE.SphereGeometry(EGG_RADIUS * 0.3, 16, 16);
             const nucleusMat = new THREE.MeshBasicMaterial({
                 color: ZYGOTE_NUCLEUS_COLOR,
                 transparent: true,
-                opacity: 0 // Start invisible
+                opacity: 0,
+                visible: false // Start invisible
             });
             egg.nucleus = new THREE.Mesh(nucleusGeo, nucleusMat);
-            egg.add(egg.nucleus); // Add as child of egg
+            egg.add(egg.nucleus); // Add as child
 
-            // Optional: Add controls to pan/zoom
-            // const controls = new OrbitControls(camera, renderer.domElement);
-            // controls.enableDamping = true;
-            // controls.dampingFactor = 0.05;
+            // Pre-create chromosome meshes (hidden)
+            const chromosomeGeo = new THREE.SphereGeometry(CHROMOSOME_RADIUS, 6, 6);
+            const chromosomeMat = new THREE.MeshPhongMaterial({ color: CHROMOSOME_COLOR, shininess: 40 });
+            for (let i = 0; i < NUM_CHROMOSOMES; i++) {
+                const chromo = new THREE.Mesh(chromosomeGeo, chromosomeMat.clone()); // Clone material
+                chromo.visible = false;
+                // Store target pole and initial position reference
+                chromo.userData = {
+                    targetPole: (i < NUM_CHROMOSOMES / 2) ? 1 : -1, // Assign half to each pole for Anaphase
+                    metaphaseTarget: new THREE.Vector3(),
+                    anaphaseTarget: new THREE.Vector3()
+                 };
+                chromosomeMeshes.push(chromo);
+                egg.add(chromo); // Add as child of egg
+            }
 
-            // Event Listeners
+            // Pre-create Daughter Cell meshes (hidden)
+             const daughterGeo = new THREE.SphereGeometry(EGG_RADIUS * 0.5, 16, 12); // Start size
+             const daughterMat = new THREE.MeshPhongMaterial({
+                color: DAUGHTER_CELL_COLOR,
+                transparent: true,
+                opacity: 0,
+                shininess: 15
+            });
+            for(let i=0; i<2; i++){
+                const cell = new THREE.Mesh(daughterGeo, daughterMat.clone());
+                cell.visible = false;
+                daughterCells.push(cell);
+                egg.add(cell); // Add as child of egg
+            }
+
+
             window.addEventListener('resize', onWindowResize, false);
             startButton.addEventListener('click', startSimulation);
             resetButton.addEventListener('click', resetSimulation);
@@ -165,266 +175,347 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
+        // --- Sperm Creation (Identical to previous version) ---
         function createSperm() {
             const group = new THREE.Group();
-
-            // Head
             const headGeometry = new THREE.SphereGeometry(SPERM_HEAD_RADIUS, 8, 8);
             const headMaterial = new THREE.MeshPhongMaterial({ color: SPERM_COLOR, shininess: 50 });
             const head = new THREE.Mesh(headGeometry, headMaterial);
             group.add(head);
-
-            // Tail (Simple Cylinder)
             const tailGeometry = new THREE.CylinderGeometry(SPERM_HEAD_RADIUS * 0.2, SPERM_HEAD_RADIUS * 0.1, SPERM_TAIL_LENGTH, 6);
             const tailMaterial = new THREE.MeshPhongMaterial({ color: SPERM_COLOR, shininess: 20 });
             const tail = new THREE.Mesh(tailGeometry, tailMaterial);
-            tail.position.z = -SPERM_TAIL_LENGTH / 2 - SPERM_HEAD_RADIUS * 0.5; // Position behind head
-            tail.rotation.x = Math.PI / 2; // Align cylinder along Z axis of group
+            tail.position.z = -SPERM_TAIL_LENGTH / 2 - SPERM_HEAD_RADIUS * 0.5;
+            tail.rotation.x = Math.PI / 2;
             group.add(tail);
 
-            // Position sperm randomly on a plane far away
             const distance = SCENE_BOUNDS * 0.8;
             const angle = Math.random() * Math.PI * 2;
-            const yAngle = (Math.random() - 0.5) * Math.PI * 0.8; // Spread vertically a bit
-
+            const yAngle = (Math.random() - 0.5) * Math.PI * 0.8;
             group.position.x = Math.cos(angle) * Math.cos(yAngle) * distance;
             group.position.y = Math.sin(yAngle) * distance;
             group.position.z = Math.sin(angle) * Math.cos(yAngle) * distance;
-
-            // Initial orientation towards the egg
             group.lookAt(egg.position);
 
-            // Store custom data
             group.userData = {
                 velocity: group.getWorldDirection(new THREE.Vector3()).multiplyScalar(SPERM_SPEED),
-                speed: SPERM_SPEED * (0.8 + Math.random() * 0.4), // Add speed variation
-                isActive: true,
-                isWinner: false,
-                fading: false,
+                speed: SPERM_SPEED * (0.8 + Math.random() * 0.4),
+                isActive: true, isWinner: false, fading: false,
                 wiggleOffset: Math.random() * Math.PI * 2,
-                head: head,
-                tail: tail
+                head: head, tail: tail
             };
-
             spermArray.push(group);
             scene.add(group);
         }
 
+         // --- Sperm Update (Handles fertilization trigger) ---
         function updateSperm(sperm, delta, time) {
             const data = sperm.userData;
-            if (!data.isActive) {
+            if (!data.isActive) { /* ... (fading logic same as before) ... */
                 if (data.fading) {
-                    // Fade out material opacity
-                    const headMat = data.head.material;
-                    const tailMat = data.tail.material;
+                    const headMat = data.head.material; const tailMat = data.tail.material;
                     if (headMat.opacity > 0) {
-                        headMat.transparent = true; // Ensure transparency is enabled
-                        tailMat.transparent = true;
-                        headMat.opacity -= 0.5 * delta; // Fade speed
-                        tailMat.opacity -= 0.5 * delta;
+                        headMat.transparent = true; tailMat.transparent = true;
+                        headMat.opacity -= 0.8 * delta; tailMat.opacity -= 0.8 * delta;
                     } else {
-                        // Remove if fully faded
-                         if (sperm.parent) {
-                             scene.remove(sperm);
-                             // Consider removing from spermArray too for performance, needs careful index handling
-                         }
+                         if (sperm.parent) scene.remove(sperm); // Remove fully faded
                     }
                 }
-                return; // Don't move if inactive
+                 return;
             }
 
-            // --- Movement ---
-            // Calculate direction towards egg
             const directionToEgg = egg.position.clone().sub(sperm.position).normalize();
-
-            // Add some random "searching" wobble perpendicular to the main direction
-            const wobble = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).multiplyScalar(0.1);
+            const wobble = new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).multiplyScalar(0.1);
             const targetDirection = directionToEgg.add(wobble).normalize();
-
-            // Simple velocity update towards target (could be more complex physics)
-            data.velocity.lerp(targetDirection.multiplyScalar(data.speed), 0.05); // Smoothly blend towards target direction
-
-            // Update position
+            data.velocity.lerp(targetDirection.multiplyScalar(data.speed), 0.05);
             sperm.position.addScaledVector(data.velocity, delta);
+            sperm.lookAt(sperm.position.clone().add(data.velocity));
 
-            // Rotate sperm to face movement direction (or towards egg)
-            sperm.lookAt(sperm.position.clone().add(data.velocity)); // Look slightly ahead
-
-            // --- Tail Wiggle ---
             const wiggleAngle = Math.sin(time * SPERM_WIGGLE_SPEED + data.wiggleOffset) * SPERM_WIGGLE_AMOUNT;
-            // Wiggle tail around the sperm's local X-axis (or Y depending on orientation)
-            data.tail.rotation.y = wiggleAngle; // Wiggle side to side relative to sperm body
+            data.tail.rotation.y = wiggleAngle;
 
-             // --- Collision Check ---
             const distanceToEgg = sperm.position.distanceTo(egg.position);
-
             if (!isFertilized && distanceToEgg < FERTILIZATION_DISTANCE) {
                 isFertilized = true;
                 winnerSperm = sperm;
                 data.isWinner = true;
-                data.isActive = false; // Winner stops moving
-
-                // Position winner precisely on egg surface
+                data.isActive = false;
                 const surfaceDirection = sperm.position.clone().sub(egg.position).normalize();
                 sperm.position.copy(egg.position).addScaledVector(surfaceDirection, EGG_RADIUS + SPERM_HEAD_RADIUS * 0.5);
-                sperm.lookAt(egg.position); // Point head towards egg center
-
+                sperm.lookAt(egg.position);
                 statusElement.textContent = "Status: Fertilization! Forming zygote...";
-                egg.material.color.setHex(EGG_COLOR_FERTILIZED); // Change egg color immediately
+                egg.material.color.setHex(EGG_COLOR_FERTILIZED);
+                data.head.material.color.setHex(WINNER_SPERM_COLOR);
+                data.tail.material.color.setHex(WINNER_SPERM_COLOR);
 
-                 // Make winner distinct (optional)
-                 data.head.material.color.setHex(WINNER_SPERM_COLOR);
-                 data.tail.material.color.setHex(WINNER_SPERM_COLOR);
+                egg.scale.set(1.05, 1.05, 1.05); // Slight pulse
+                setTimeout(() => egg.scale.set(1, 1, 1), 150);
 
-                // Trigger fertilization effect (e.g., simple scale pulse)
-                egg.scale.set(1.1, 1.1, 1.1);
-                setTimeout(() => egg.scale.set(1, 1, 1), 150); // Scale back down
-
-                // Stop other sperm and make them fade
                 spermArray.forEach(s => {
                     if (s !== winnerSperm) {
-                        s.userData.isActive = false;
-                        s.userData.fading = true;
-                         // Reset opacity for fading effect
-                        s.userData.head.material.opacity = 1.0;
-                        s.userData.tail.material.opacity = 1.0;
+                        s.userData.isActive = false; s.userData.fading = true;
+                        s.userData.head.material.opacity = 1.0; s.userData.tail.material.opacity = 1.0;
                     }
                 });
             }
-
-            // Remove sperm that travel too far
-            if (sperm.position.length() > SCENE_BOUNDS * 1.2) { // Check distance from origin
-                data.isActive = false;
-                data.fading = true; // Make them fade out if they go too far
-                 data.head.material.opacity = 1.0;
-                 data.tail.material.opacity = 1.0;
+            if (sperm.position.length() > SCENE_BOUNDS * 1.2) {
+                data.isActive = false; data.fading = true;
+                data.head.material.opacity = 1.0; data.tail.material.opacity = 1.0;
             }
         }
 
 
+        // --- Mitosis Update Logic ---
+        function updateMitosis(delta) {
+            if (mitosisState === 'NONE' || mitosisState === 'COMPLETE') return;
+
+            mitosisProgress += delta;
+            let stageDuration;
+            let progressRatio = 0; // Progress within the current stage (0 to 1)
+
+            switch (mitosisState) {
+                case 'PROPHASE':
+                    stageDuration = PROPHASE_DURATION;
+                    progressRatio = Math.min(1.0, mitosisProgress / stageDuration);
+                    statusElement.textContent = "Status: Mitosis - Prophase";
+
+                    // Fade in chromosomes, fade out nucleus
+                    const nucleusOpacity = 1.0 - progressRatio;
+                    egg.nucleus.material.opacity = nucleusOpacity > 0 ? nucleusOpacity : 0;
+                     if(nucleusOpacity <= 0) egg.nucleus.visible = false;
+
+                    chromosomeMeshes.forEach((chromo, i) => {
+                        chromo.visible = true;
+                        chromo.material.opacity = progressRatio;
+                        // Simple random movement to simulate condensation/activity
+                        chromo.position.x += (Math.random() - 0.5) * 0.05 * delta * 60;
+                        chromo.position.y += (Math.random() - 0.5) * 0.05 * delta * 60;
+                        chromo.position.z += (Math.random() - 0.5) * 0.05 * delta * 60;
+                         // Keep inside nucleus radius roughly
+                        chromo.position.clampLength(0, EGG_RADIUS * 0.4);
+                    });
+
+                    if (progressRatio >= 1.0) {
+                        mitosisState = 'METAPHASE';
+                        mitosisProgress = 0; // Reset progress for next stage
+                        // Calculate target positions on metaphase plate (XY plane)
+                         chromosomeMeshes.forEach((chromo, i) => {
+                             const angle = (i / NUM_CHROMOSOMES) * Math.PI * 2;
+                             const radius = EGG_RADIUS * 0.3 * (0.5 + Math.random() * 0.5); // Random radius on plate
+                             chromo.userData.metaphaseTarget.set(
+                                 Math.cos(angle) * radius,
+                                 Math.sin(angle) * radius,
+                                 (Math.random()-0.5) * 0.1 // Slight Z variation
+                             );
+                         });
+                    }
+                    break;
+
+                case 'METAPHASE':
+                    stageDuration = METAPHASE_DURATION;
+                    progressRatio = Math.min(1.0, mitosisProgress / stageDuration);
+                    statusElement.textContent = "Status: Mitosis - Metaphase";
+
+                    // Move chromosomes to metaphase plate
+                     chromosomeMeshes.forEach(chromo => {
+                        chromo.position.lerp(chromo.userData.metaphaseTarget, 0.1 * progressRatio); // Smooth move
+                     });
+
+                    if (progressRatio >= 1.0) {
+                        mitosisState = 'ANAPHASE';
+                        mitosisProgress = 0;
+                        // Calculate target pole positions
+                        const poleDist = EGG_RADIUS * POLE_DISTANCE_FACTOR;
+                        chromosomeMeshes.forEach(chromo => {
+                             chromo.userData.anaphaseTarget.set(
+                                 chromo.position.x * 0.3, // Move slightly inwards horizontally
+                                 chromo.position.y * 0.3,
+                                 chromo.userData.targetPole * poleDist // Move to assigned pole Z
+                             );
+                         });
+                    }
+                    break;
+
+                case 'ANAPHASE':
+                    stageDuration = ANAPHASE_DURATION;
+                    progressRatio = Math.min(1.0, mitosisProgress / stageDuration);
+                    statusElement.textContent = "Status: Mitosis - Anaphase";
+
+                    // Move chromosomes to poles
+                     chromosomeMeshes.forEach(chromo => {
+                         chromo.position.lerp(chromo.userData.anaphaseTarget, 0.15 * progressRatio); // Move faster
+                     });
+
+                    // Optional: Slight cell elongation (barely noticeable)
+                    // egg.scale.z = 1.0 + 0.05 * progressRatio;
+
+                    if (progressRatio >= 1.0) {
+                        mitosisState = 'TELOPHASE';
+                        mitosisProgress = 0;
+                         egg.scale.z = 1.0; // Reset scale
+                    }
+                    break;
+
+                case 'TELOPHASE':
+                    stageDuration = TELOPHASE_DURATION;
+                    progressRatio = Math.min(1.0, mitosisProgress / stageDuration);
+                    statusElement.textContent = "Status: Mitosis - Telophase (Cytokinesis)";
+
+                    // Fade out chromosomes, fade in daughter cells
+                    const visibilityProgress = THREE.MathUtils.smoothstep(progressRatio, 0.2, 0.8); // Fade chromo later
+                    chromosomeMeshes.forEach(chromo => {
+                         chromo.material.transparent = true;
+                         chromo.material.opacity = 1.0 - visibilityProgress;
+                         if(chromo.material.opacity <= 0) chromo.visible = false;
+                     });
+
+                    // Position and reveal daughter cells
+                    const poleDist = EGG_RADIUS * POLE_DISTANCE_FACTOR * 0.8; // Center of daughter cells
+                    daughterCells[0].position.z = poleDist; // Pole 1
+                    daughterCells[1].position.z = -poleDist; // Pole 2
+                     daughterCells.forEach(cell => {
+                         cell.visible = true;
+                         cell.material.opacity = progressRatio * 0.8; // Fade in daughter cells
+                         const scale = 0.1 + progressRatio * 0.9; // Grow daughter cells
+                         cell.scale.set(scale, scale, scale);
+                     });
+
+                    if (progressRatio >= 1.0) {
+                        mitosisState = 'COMPLETE';
+                        statusElement.textContent = "Status: Mitosis Complete - Two Daughter Cells";
+                        // Keep daughter cells visible
+                    }
+                    break;
+            }
+        }
+
+        // --- Main Animation Loop ---
         function animate() {
             animationFrameId = requestAnimationFrame(animate);
-
             const delta = clock.getDelta();
             const time = clock.getElapsedTime();
 
-             if (!isSimulating) return; // Don't update if paused/stopped
+            if (!isSimulating && mitosisState === 'NONE') return; // Only stop if truly inactive
 
             let activeSpermCount = 0;
             // Update sperm (iterate backwards if removing elements)
-            for (let i = spermArray.length - 1; i >= 0; i--) {
-                const sperm = spermArray[i];
-                 updateSperm(sperm, delta, time);
-                 if(sperm.userData.isActive) {
-                     activeSpermCount++;
-                 }
-                 // Check if sperm should be removed entirely (fully faded)
-                 if(sperm.userData.fading && sperm.userData.head.material.opacity <= 0 && !sperm.parent) {
-                     spermArray.splice(i, 1); // Remove from array if removed from scene
+            if (!isFertilized || winnerSperm) { // Stop updating sperm once winner is gone and fertilized
+                 for (let i = spermArray.length - 1; i >= 0; i--) {
+                     const sperm = spermArray[i];
+                     updateSperm(sperm, delta, time);
+                     if (sperm.userData.isActive) { activeSpermCount++; }
+                     // Remove check (moved inside updateSperm's fade logic)
                  }
             }
 
-            // Update Zygote Formation
+            // Update Zygote Formation & Trigger Mitosis
             if (isFertilized && zygoteFormationProgress < 1) {
-                zygoteFormationProgress += 0.5 * delta; // Speed of zygote visual change
-                 if (zygoteFormationProgress > 1) zygoteFormationProgress = 1;
+                zygoteFormationProgress += 0.3 * delta; // Speed of zygote visual change
+                if (zygoteFormationProgress > 1) zygoteFormationProgress = 1;
 
-                 // Make nucleus visible and grow slightly
-                 const nucleusProgress = THREE.MathUtils.smoothstep(zygoteFormationProgress, 0, 1);
-                 egg.nucleus.material.opacity = nucleusProgress * 0.8; // Fade in nucleus
-                 egg.nucleus.scale.setScalar(1.0 + nucleusProgress * 0.5); // Grow nucleus
+                const nucleusProgress = THREE.MathUtils.smoothstep(zygoteFormationProgress, 0, 1);
+                egg.nucleus.visible = true;
+                egg.nucleus.material.opacity = nucleusProgress * 0.9;
+                egg.nucleus.scale.setScalar(1.0 + nucleusProgress * 0.2);
 
-                if (zygoteFormationProgress >= 1 && !statusElement.textContent.includes("complete")) {
-                    statusElement.textContent = "Status: Zygote formation complete.";
+                if (zygoteFormationProgress >= 1 && mitosisState === 'NONE') {
+                    mitosisState = 'PROPHASE'; // Start mitosis
+                    mitosisProgress = 0;
+                    statusElement.textContent = "Status: Mitosis Initiated - Prophase";
+                     // Remove winner sperm visually now
+                     if(winnerSperm && winnerSperm.parent) {
+                         scene.remove(winnerSperm);
+                         winnerSperm = null; // Clear reference
+                     }
+                      // Initialize chromosome positions randomly near center
+                    chromosomeMeshes.forEach(chromo => {
+                        chromo.position.set(
+                            (Math.random() - 0.5) * EGG_RADIUS * 0.1,
+                            (Math.random() - 0.5) * EGG_RADIUS * 0.1,
+                            (Math.random() - 0.5) * EGG_RADIUS * 0.1
+                        );
+                        chromo.material.opacity = 0; // Start invisible for fade-in
+                    });
                 }
             }
 
-             // Stop simulation conditions
-             const simulationShouldEnd = (activeSpermCount === 0 && !isFertilized) || (isFertilized && zygoteFormationProgress >= 1);
-
-            if (simulationShouldEnd) {
-                isSimulating = false;
-                resetButton.disabled = false; // Allow reset
-                if(!isFertilized && !statusElement.textContent.includes("complete")) {
-                    statusElement.textContent = "Status: Simulation ended. No fertilization.";
-                }
-                // Zygote complete message handled above
+            // Update Mitosis Stages if active
+            if (mitosisState !== 'NONE' && mitosisState !== 'COMPLETE') {
+                updateMitosis(delta);
             }
 
+            // Check simulation end conditions
+            const spermGone = spermArray.every(s => !s.parent); // Check if all sperm removed from scene
+            const simulationEnded = (spermGone && !isFertilized) || mitosisState === 'COMPLETE';
 
-            // Optional: update controls if using OrbitControls
-            // controls.update();
+            if (!isSimulating && simulationEnded && resetButton.disabled) {
+                 resetButton.disabled = false; // Enable reset when finished
+                 if (!isFertilized && !statusElement.textContent.includes("Mitosis")) {
+                      statusElement.textContent = "Status: Simulation ended. No fertilization.";
+                 }
+                 // Mitosis complete message handled in updateMitosis
+            }
 
             renderer.render(scene, camera);
         }
 
+        // --- Control Functions ---
         function startSimulation() {
-             if (isSimulating) return;
-             resetSimulation(false); // Reset state without clearing scene immediately
+            if (isSimulating || mitosisState !== 'NONE') return; // Prevent restart if mitosis started
+            resetSimulation(false);
 
-             isSimulating = true;
-             startButton.disabled = true;
-             resetButton.disabled = true;
-             statusElement.textContent = "Status: Simulation running...";
+            isSimulating = true;
+            startButton.disabled = true;
+            resetButton.disabled = true;
+            statusElement.textContent = "Status: Simulation running...";
 
-             // Create initial sperm
-             for (let i = 0; i < SPERM_COUNT; i++) {
-                 createSperm();
-             }
+            for (let i = 0; i < SPERM_COUNT; i++) { createSperm(); }
 
-             // Start animation loop if not already running
-             if (animationFrameId === null) {
-                 animate();
-             }
-         }
+            if (animationFrameId === null) { animate(); }
+        }
 
-         function resetSimulation(clearSceneContent = true) {
-             // Stop animation logic
+        function resetSimulation(clearSceneContent = true) {
              isSimulating = false; // Stop updates in the loop
 
-             if(clearSceneContent) {
-                 // Stop the animation loop completely if resetting fully
-                 if (animationFrameId) {
-                     cancelAnimationFrame(animationFrameId);
-                     animationFrameId = null;
-                 }
-                 // Remove existing sperm from scene and array
-                 spermArray.forEach(sperm => {
-                     if (sperm.parent) scene.remove(sperm);
-                     // Clean up geometry and materials if needed (more advanced)
-                 });
-                 spermArray = [];
-             }
-
-
-             // Reset state variables
-             isFertilized = false;
+             // Remove sperm
+             spermArray.forEach(sperm => { if (sperm.parent) scene.remove(sperm); });
+             spermArray = [];
              winnerSperm = null;
-             zygoteFormationProgress = 0;
 
-             // Reset egg appearance
+             // Reset fertilization state
+             isFertilized = false;
+             zygoteFormationProgress = 0;
              if (egg) {
                  egg.material.color.setHex(EGG_COLOR_INITIAL);
-                 egg.nucleus.material.opacity = 0;
-                 egg.nucleus.scale.setScalar(1.0);
                  egg.scale.set(1, 1, 1);
+                 if (egg.nucleus) {
+                     egg.nucleus.visible = false;
+                     egg.nucleus.material.opacity = 0;
+                     egg.nucleus.scale.setScalar(1.0);
+                 }
              }
+
+             // Reset Mitosis state
+             mitosisState = 'NONE';
+             mitosisProgress = 0;
+             chromosomeMeshes.forEach(chromo => { chromo.visible = false; });
+             daughterCells.forEach(cell => { cell.visible = false; cell.material.opacity = 0; cell.scale.set(0.1,0.1,0.1);}); // Reset scale too
 
              // Reset UI
              startButton.disabled = false;
              resetButton.disabled = true;
              statusElement.textContent = "Status: Ready";
 
-             // Render one frame of the reset state if clearing content
-             if (clearSceneContent && renderer) {
-                 renderer.render(scene, camera);
-             }
-         }
+             // Only stop animation loop if fully resetting (might want to keep it running for camera controls etc)
+             // if (animationFrameId) { cancelAnimationFrame(animationFrameId); animationFrameId = null; }
+
+             // Render one frame of the reset state
+             if (renderer) { renderer.render(scene, camera); }
+        }
 
         // --- Run ---
         init();
-        // Render the initial state (just the egg)
-        renderer.render(scene, camera);
+        renderer.render(scene, camera); // Initial render
 
     </script>
 </body>
