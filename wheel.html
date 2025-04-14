@@ -98,7 +98,17 @@
 
         function toggleForm() {
             const formContainer = document.querySelector('.form-container');
+            const collapseButton = document.querySelector('.collapse-button');
+
+            // Toggle the collapsed class
             formContainer.classList.toggle('collapsed');
+
+            // Update the button text dynamically
+            if (formContainer.classList.contains('collapsed')) {
+                collapseButton.textContent = "Show Form";
+            } else {
+                collapseButton.textContent = "Hide Form";
+            }
         }
     </script>
 </head>
@@ -110,7 +120,7 @@
     <div class="main-container">
         <!-- Collapsible Form Section -->
         <div class="form-container">
-            <button class="collapse-button" onclick="toggleForm()">Toggle Form</button>
+            <button class="collapse-button" onclick="toggleForm()">Hide Form</button>
             <div class="form-content">
                 <h3 class="text-center mb-4">Customize Your Wheel</h3>
                 <form onsubmit="event.preventDefault(); updateIframe();">
