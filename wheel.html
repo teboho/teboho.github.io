@@ -3,16 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Wheel Options</title>
+    <title>Boxfusion Grad Recruitment Wheel</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .header {
+            background-color: #ff6600;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #ff6600;
+            border-color: #ff6600;
+        }
+        .btn-primary:hover {
+            background-color: #e65c00;
+            border-color: #e65c00;
+        }
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .iframe-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
     <script>
         function addInputField() {
             const container = document.getElementById('inputContainer');
             const inputCount = container.children.length + 1;
 
             const newInput = document.createElement('div');
+            newInput.className = "mb-3";
             newInput.innerHTML = `
-                <label for="option${inputCount}">Option ${inputCount}:</label>
-                <input type="text" id="option${inputCount}" placeholder="Enter option ${inputCount}" required>
+                <label for="option${inputCount}" class="form-label">Option ${inputCount}:</label>
+                <input type="text" class="form-control" id="option${inputCount}" placeholder="Enter option ${inputCount}" required>
             `;
             container.appendChild(newInput);
         }
@@ -37,24 +70,37 @@
     </script>
 </head>
 <body>
-    <h1>Boxfusion Grad Recruitment Wheel</h1>
-    <form onsubmit="event.preventDefault(); updateIframe();">
-        <div id="inputContainer">
-            <!-- Default input fields -->
-            <div>
-                <label for="option1">Option 1:</label>
-                <input type="text" id="option1" placeholder="Enter option 1" required>
-            </div>
-            <div>
-                <label for="option2">Option 2:</label>
-                <input type="text" id="option2" placeholder="Enter option 2" required>
-            </div>
-        </div>
-        <button type="button" onclick="addInputField()">Add More Options</button><br><br>
-        <button type="submit">Generate Wheel</button>
-    </form>
+    <header class="header">
+        <h1>Boxfusion Grad Recruitment Wheel</h1>
+    </header>
 
-    <h2>Wheel Preview</h2>
-    <iframe id="wheelFrame" src="https://wheeldecide.com/e.php?c1=A&c2=B&t=hhh&time=5" width="500" height="500" scrolling="no" frameborder="0"></iframe>
+    <div class="container mt-4">
+        <div class="form-container">
+            <h3 class="text-center mb-4">Customize Your Wheel</h3>
+            <form onsubmit="event.preventDefault(); updateIframe();">
+                <div id="inputContainer">
+                    <!-- Default input fields -->
+                    <div class="mb-3">
+                        <label for="option1" class="form-label">Option 1:</label>
+                        <input type="text" class="form-control" id="option1" placeholder="Enter option 1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="option2" class="form-label">Option 2:</label>
+                        <input type="text" class="form-control" id="option2" placeholder="Enter option 2" required>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="addInputField()">Add More Options</button>
+                <button type="submit" class="btn btn-primary mt-2">Generate Wheel</button>
+            </form>
+        </div>
+
+        <div class="iframe-container">
+            <h3 class="mt-4">Wheel Preview</h3>
+            <iframe id="wheelFrame" src="https://wheeldecide.com/e.php?c1=A&c2=B&t=hhh&time=5" width="500" height="500" scrolling="no" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (for interactive components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
