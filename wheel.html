@@ -10,30 +10,58 @@
         body {
             background-color: #f8f9fa;
             color: #333;
+            margin: 0;
+            overflow: hidden; /* Prevent body scroll */
         }
         .header {
             background-color: #ff6600;
             color: white;
             padding: 20px;
             text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
-        .btn-primary {
-            background-color: #ff6600;
-            border-color: #ff6600;
-        }
-        .btn-primary:hover {
-            background-color: #e65c00;
-            border-color: #e65c00;
+        .main-container {
+            display: flex;
+            margin-top: 80px; /* Space for the fixed header */
+            height: calc(100vh - 80px); /* Full height minus header */
         }
         .form-container {
+            width: 30%;
             background: white;
-            border-radius: 8px;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+        .form-container.collapsed {
+            width: 0;
+            overflow: hidden;
+        }
+        .collapse-button {
+            text-align: center;
+            cursor: pointer;
+            background-color: #ff6600;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+        }
+        .form-content {
             padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .iframe-container {
-            text-align: center;
-            margin-top: 20px;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ddd;
+            overflow: hidden;
+        }
+        .iframe-container iframe {
+            width: 500px;
+            height: 500px;
         }
     </style>
     <script>
@@ -67,6 +95,11 @@
 
             document.getElementById('wheelFrame').src = finalURL;
         }
+
+        function toggleForm() {
+            const formContainer = document.querySelector('.form-container');
+            formContainer.classList.toggle('collapsed');
+        }
     </script>
 </head>
 <body>
@@ -74,29 +107,33 @@
         <h1>Boxfusion Grad Recruitment Wheel</h1>
     </header>
 
-    <div class="container mt-4">
+    <div class="main-container">
+        <!-- Collapsible Form Section -->
         <div class="form-container">
-            <h3 class="text-center mb-4">Customize Your Wheel</h3>
-            <form onsubmit="event.preventDefault(); updateIframe();">
-                <div id="inputContainer">
-                    <!-- Default input fields -->
-                    <div class="mb-3">
-                        <label for="option1" class="form-label">Option 1:</label>
-                        <input type="text" class="form-control" id="option1" placeholder="Enter option 1" required>
+            <button class="collapse-button" onclick="toggleForm()">Toggle Form</button>
+            <div class="form-content">
+                <h3 class="text-center mb-4">Customize Your Wheel</h3>
+                <form onsubmit="event.preventDefault(); updateIframe();">
+                    <div id="inputContainer">
+                        <!-- Default input fields -->
+                        <div class="mb-3">
+                            <label for="option1" class="form-label">Option 1:</label>
+                            <input type="text" class="form-control" id="option1" placeholder="Enter option 1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="option2" class="form-label">Option 2:</label>
+                            <input type="text" class="form-control" id="option2" placeholder="Enter option 2" required>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="option2" class="form-label">Option 2:</label>
-                        <input type="text" class="form-control" id="option2" placeholder="Enter option 2" required>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-secondary" onclick="addInputField()">Add More Options</button>
-                <button type="submit" class="btn btn-primary mt-2">Generate Wheel</button>
-            </form>
+                    <button type="button" class="btn btn-secondary" onclick="addInputField()">Add More Options</button>
+                    <button type="submit" class="btn btn-primary mt-2">Generate Wheel</button>
+                </form>
+            </div>
         </div>
 
+        <!-- Wheel Section -->
         <div class="iframe-container">
-            <h3 class="mt-4">Wheel Preview</h3>
-            <iframe id="wheelFrame" src="https://wheeldecide.com/e.php?c1=A&c2=B&t=hhh&time=5" width="500" height="500" scrolling="no" frameborder="0"></iframe>
+            <iframe id="wheelFrame" src="https://wheeldecide.com/e.php?c1=A&c2=B&t=hhh&time=5" frameborder="0" scrolling="no"></iframe>
         </div>
     </div>
 
