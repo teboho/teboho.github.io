@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gnosticism – Technical Overview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #020617;
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --accent: #38bdf8;
+            --border: #1e293b;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #020617, #020617cc);
+            padding: 2.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.4rem;
+            color: var(--accent);
+        }
+
+        header p {
+            max-width: 800px;
+            color: var(--muted);
+        }
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            background: var(--panel);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: #020617aa;
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .timeline {
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+        }
+
+        .event {
+            margin-bottom: 2rem;
+        }
+
+        .event span {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+        }
+
+        code {
+            background: #020617;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #7dd3fc;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Gnosticism</h1>
+    <p>
+        A technical and historical overview of Gnosticism — its core beliefs,
+        cosmology, key figures, and historical development.
+    </p>
+</header>
+
+<main>
+
+    <section>
+        <h2>1. Definition</h2>
+        <p>
+            <strong>Gnosticism</strong> refers to a collection of early religious
+            movements (1st–4th century CE) emphasizing <em>gnosis</em> —
+            direct, experiential knowledge of the divine — as the means of salvation.
+        </p>
+        <p>
+            Gnostic systems typically distinguish between the <code>material world</code>
+            (imperfect or corrupt) and a higher <code>spiritual realm</code>.
+        </p>
+    </section>
+
+    <section>
+        <h2>2. Core Beliefs</h2>
+        <ul>
+            <li><strong>Gnosis:</strong> Salvation through hidden spiritual knowledge</li>
+            <li><strong>Dualism:</strong> Spirit is good; matter is flawed or evil</li>
+            <li><strong>Demiurge:</strong> A lesser creator god who fashioned the material world</li>
+            <li><strong>Divine Spark:</strong> A fragment of true divinity exists within humans</li>
+            <li><strong>Revelation:</strong> Enlightenment comes via a revealer figure (e.g., Christ)</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>3. Gnostic Cosmology (Simplified)</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Pleroma</h3>
+                <p>
+                    The fullness of the divine realm, inhabited by emanations
+                    known as <em>Aeons</em>.
+                </p>
+            </div>
+            <div class="card">
+                <h3>Aeons</h3>
+                <p>
+                    Divine beings emanating from the Monad (ultimate source).
+                    Often structured in pairs.
+                </p>
+            </div>
+            <div class="card">
+                <h3>Demiurge</h3>
+                <p>
+                    The ignorant or hostile creator of the material universe,
+                    sometimes identified with the Old Testament God.
+                </p>
+            </div>
+            <div class="card">
+                <h3>Material World</h3>
+                <p>
+                    A flawed realm that traps divine sparks within human bodies.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>4. Key Figures</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Valentinus</h3>
+                <p>
+                    Influential Gnostic teacher (2nd century CE).
+                    Developed a sophisticated cosmology integrating Christian theology.
+                </p>
+            </div>
+            <div class="card">
+                <h3>Basilides</h3>
+                <p>
+                    Alexandrian Gnostic thinker who proposed a complex system
+                    of emanations and divine hierarchies.
+                </p>
+            </div>
+            <div class="card">
+                <h3>Simon Magus</h3>
+                <p>
+                    Often considered an early proto-Gnostic figure,
+                    mentioned in early Christian writings.
+                </p>
+            </div>
+            <div class="card">
+                <h3>Sophia</h3>
+                <p>
+                    A central mythological figure representing divine wisdom
+                    and the source of cosmic imbalance.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>5. Historical Timeline</h2>
+        <div class="timeline">
+            <div class="event">
+                <span>1st Century CE</span>
+                <p>
+                    Emergence of early Gnostic ideas alongside early Christianity
+                    and Hellenistic Judaism.
+                </p>
+            </div>
+
+            <div class="event">
+                <span>2nd Century CE</span>
+                <p>
+                    Flourishing of major Gnostic schools (Valentinians, Sethians).
+                    Composition of Gnostic gospels.
+                </p>
+            </div>
+
+            <div class="event">
+                <span>3rd Century CE</span>
+                <p>
+                    Increasing opposition from proto-orthodox Christianity.
+                    Writings of Church Fathers against Gnosticism.
+                </p>
+            </div>
+
+            <div class="event">
+                <span>4th Century CE</span>
+                <p>
+                    Decline of organized Gnostic movements following Christian
+                    orthodoxy becoming dominant in the Roman Empire.
+                </p>
+            </div>
+
+            <div class="event">
+                <span>1945 CE</span>
+                <p>
+                    Discovery of the <strong>Nag Hammadi Library</strong> in Egypt,
+                    providing original Gnostic texts.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>6. Key Texts</h2>
+        <ul>
+            <li>The Gospel of Thomas</li>
+            <li>The Gospel of Philip</li>
+            <li>The Apocryphon of John</li>
+            <li>Pistis Sophia</li>
+            <li>The Tripartite Tractate</li>
+        </ul>
+    </section>
+
+</main>
+
+<footer>
+    <p>
+        Technical Knowledge Page • Gnosticism Overview • Educational Use
+    </p>
+</footer>
+
+</body>
+</html>
