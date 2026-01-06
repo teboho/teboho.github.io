@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gnosticism – Technical Overview</title>
+    <title>Gnosticism – Technical Reference</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
@@ -20,13 +20,13 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
         header {
-            background: linear-gradient(135deg, #020617, #020617cc);
             padding: 2.5rem;
             border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, #020617, #020617cc);
         }
 
         header h1 {
@@ -36,22 +36,50 @@
         }
 
         header p {
-            max-width: 800px;
+            max-width: 900px;
             color: var(--muted);
         }
 
         main {
-            max-width: 1100px;
+            max-width: 1150px;
             margin: auto;
             padding: 2rem;
         }
 
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab {
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            color: var(--muted);
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         section {
-            margin-bottom: 3rem;
             background: var(--panel);
             padding: 2rem;
             border-radius: 8px;
             border: 1px solid var(--border);
+            margin-bottom: 2rem;
         }
 
         h2 {
@@ -61,7 +89,7 @@
         }
 
         ul {
-            padding-left: 1.2rem;
+            padding-left: 1.3rem;
         }
 
         li {
@@ -81,18 +109,26 @@
             border: 1px solid var(--border);
         }
 
-        .timeline {
-            border-left: 3px solid var(--accent);
+        .chrono-step {
+            margin-bottom: 2.5rem;
             padding-left: 1.5rem;
+            border-left: 4px solid var(--accent);
         }
 
-        .event {
-            margin-bottom: 2rem;
-        }
-
-        .event span {
+        .chrono-step span {
+            display: block;
             color: var(--accent);
             font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        blockquote {
+            margin: 1rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid var(--border);
+            color: #c7d2fe;
+            font-style: italic;
         }
 
         footer {
@@ -106,8 +142,8 @@
             background: #020617;
             padding: 0.2rem 0.4rem;
             border-radius: 4px;
-            font-size: 0.9rem;
             color: #7dd3fc;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -117,167 +153,265 @@
 <header>
     <h1>Gnosticism</h1>
     <p>
-        A technical and historical overview of Gnosticism — its core beliefs,
-        cosmology, key figures, and historical development.
+        A technical, source-driven reference to Gnostic thought,
+        structured using primary texts from the Nag Hammadi corpus
+        and related early writings.
     </p>
 </header>
 
 <main>
 
-    <section>
-        <h2>1. Definition</h2>
-        <p>
-            <strong>Gnosticism</strong> refers to a collection of early religious
-            movements (1st–4th century CE) emphasizing <em>gnosis</em> —
-            direct, experiential knowledge of the divine — as the means of salvation.
-        </p>
-        <p>
-            Gnostic systems typically distinguish between the <code>material world</code>
-            (imperfect or corrupt) and a higher <code>spiritual realm</code>.
-        </p>
-    </section>
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active" onclick="openTab('overview')">Overview</div>
+        <div class="tab" onclick="openTab('chronological')">Chronological Walkthrough</div>
+        <div class="tab" onclick="openTab('creation')">Creation (Gnostic)</div>
+    </div>
 
-    <section>
-        <h2>2. Core Beliefs</h2>
-        <ul>
-            <li><strong>Gnosis:</strong> Salvation through hidden spiritual knowledge</li>
-            <li><strong>Dualism:</strong> Spirit is good; matter is flawed or evil</li>
-            <li><strong>Demiurge:</strong> A lesser creator god who fashioned the material world</li>
-            <li><strong>Divine Spark:</strong> A fragment of true divinity exists within humans</li>
-            <li><strong>Revelation:</strong> Enlightenment comes via a revealer figure (e.g., Christ)</li>
-        </ul>
-    </section>
+    <!-- OVERVIEW -->
+    <div id="overview" class="tab-content active">
 
-    <section>
-        <h2>3. Gnostic Cosmology (Simplified)</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Pleroma</h3>
-                <p>
-                    The fullness of the divine realm, inhabited by emanations
-                    known as <em>Aeons</em>.
-                </p>
-            </div>
-            <div class="card">
-                <h3>Aeons</h3>
-                <p>
-                    Divine beings emanating from the Monad (ultimate source).
-                    Often structured in pairs.
-                </p>
-            </div>
-            <div class="card">
-                <h3>Demiurge</h3>
-                <p>
-                    The ignorant or hostile creator of the material universe,
-                    sometimes identified with the Old Testament God.
-                </p>
-            </div>
-            <div class="card">
-                <h3>Material World</h3>
-                <p>
-                    A flawed realm that traps divine sparks within human bodies.
-                </p>
-            </div>
-        </div>
-    </section>
+        <section>
+            <h2>Definition</h2>
+            <p>
+                <strong>Gnosticism</strong> refers to several early religious movements
+                (1st–4th century CE) asserting that salvation is achieved through
+                <em>gnosis</em> — direct experiential knowledge of divine reality.
+            </p>
+        </section>
 
-    <section>
-        <h2>4. Key Figures</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Valentinus</h3>
-                <p>
-                    Influential Gnostic teacher (2nd century CE).
-                    Developed a sophisticated cosmology integrating Christian theology.
-                </p>
-            </div>
-            <div class="card">
-                <h3>Basilides</h3>
-                <p>
-                    Alexandrian Gnostic thinker who proposed a complex system
-                    of emanations and divine hierarchies.
-                </p>
-            </div>
-            <div class="card">
-                <h3>Simon Magus</h3>
-                <p>
-                    Often considered an early proto-Gnostic figure,
-                    mentioned in early Christian writings.
-                </p>
-            </div>
-            <div class="card">
-                <h3>Sophia</h3>
-                <p>
-                    A central mythological figure representing divine wisdom
-                    and the source of cosmic imbalance.
-                </p>
-            </div>
-        </div>
-    </section>
+        <section>
+            <h2>Core Principles</h2>
+            <ul>
+                <li>Salvation through knowledge, not faith alone</li>
+                <li>Radical distinction between spirit and matter</li>
+                <li>A transcendent, unknowable Source (Monad)</li>
+                <li>A lesser creator (Demiurge) governs the material cosmos</li>
+                <li>Divine spark imprisoned within humanity</li>
+            </ul>
+        </section>
 
-    <section>
-        <h2>5. Historical Timeline</h2>
-        <div class="timeline">
-            <div class="event">
-                <span>1st Century CE</span>
+        <section>
+            <h2>Key Figures & Concepts</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Valentinus</h3>
+                    <p>Second-century teacher who systematized Christian Gnostic theology.</p>
+                </div>
+                <div class="card">
+                    <h3>Sophia</h3>
+                    <p>Divine Wisdom whose error initiates cosmic fragmentation.</p>
+                </div>
+                <div class="card">
+                    <h3>Demiurge</h3>
+                    <p>Ignorant creator of the material world, ruler of the Archons.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- CHRONOLOGICAL -->
+    <div id="chronological" class="tab-content">
+
+        <section>
+            <h2>Chronological Walkthrough (Primary Texts)</h2>
+
+            <div class="chrono-step">
+                <span>c. 50–100 CE | Gospel of Thomas</span>
+                <blockquote>
+                    “The kingdom is inside you and it is outside you…
+                    When you know yourselves, you will be known.”
+                </blockquote>
                 <p>
-                    Emergence of early Gnostic ideas alongside early Christianity
-                    and Hellenistic Judaism.
+                    Jesus is portrayed as a revealer of self-knowledge.
+                    No crucifixion theology; salvation through awakening.
                 </p>
             </div>
 
-            <div class="event">
-                <span>2nd Century CE</span>
+            <div class="chrono-step">
+                <span>c. 100–130 CE | Apocryphon of John</span>
+                <blockquote>
+                    “I am the invisible Spirit…
+                    It is not right to think of it as a god.”
+                </blockquote>
                 <p>
-                    Flourishing of major Gnostic schools (Valentinians, Sethians).
-                    Composition of Gnostic gospels.
+                    Introduces the Monad, Aeons, and a transcendent divine source
+                    beyond the creator of the material world.
                 </p>
             </div>
 
-            <div class="event">
-                <span>3rd Century CE</span>
+            <div class="chrono-step">
+                <span>c. 120–150 CE | Sophia Myth</span>
+                <blockquote>
+                    “Sophia desired to bring forth something by herself,
+                    without the consent of the Spirit.”
+                </blockquote>
                 <p>
-                    Increasing opposition from proto-orthodox Christianity.
-                    Writings of Church Fathers against Gnosticism.
+                    Explains cosmic disorder as the result of divine error,
+                    not moral evil.
                 </p>
             </div>
 
-            <div class="event">
-                <span>4th Century CE</span>
+            <div class="chrono-step">
+                <span>c. 130–170 CE | Hypostasis of the Archons</span>
+                <blockquote>
+                    “It is I who am God, and there is no other beside me.”
+                </blockquote>
                 <p>
-                    Decline of organized Gnostic movements following Christian
-                    orthodoxy becoming dominant in the Roman Empire.
+                    The Demiurge’s claim is framed as ignorance, not truth.
                 </p>
             </div>
 
-            <div class="event">
-                <span>1945 CE</span>
+            <div class="chrono-step">
+                <span>c. 150–180 CE | Gospel of Truth</span>
+                <blockquote>
+                    “Ignorance of the Father brought anguish and terror,
+                    but knowledge appeared.”
+                </blockquote>
                 <p>
-                    Discovery of the <strong>Nag Hammadi Library</strong> in Egypt,
-                    providing original Gnostic texts.
+                    Salvation is healing through knowledge, not forgiveness of sin.
                 </p>
             </div>
-        </div>
-    </section>
 
-    <section>
-        <h2>6. Key Texts</h2>
-        <ul>
-            <li>The Gospel of Thomas</li>
-            <li>The Gospel of Philip</li>
-            <li>The Apocryphon of John</li>
-            <li>Pistis Sophia</li>
-            <li>The Tripartite Tractate</li>
-        </ul>
-    </section>
+            <div class="chrono-step">
+                <span>c. 180–220 CE | Gospel of Philip</span>
+                <blockquote>
+                    “Truth did not come into the world naked,
+                    but in types and images.”
+                </blockquote>
+                <p>
+                    Emphasis on symbols, sacraments, and mystical union.
+                </p>
+            </div>
+
+            <div class="chrono-step">
+                <span>1945 CE | Nag Hammadi Discovery</span>
+                <p>
+                    Original Gnostic texts recovered in Egypt,
+                    restoring first-hand sources.
+                </p>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- CREATION -->
+    <div id="creation" class="tab-content">
+
+        <section>
+            <h2>Creation According to Gnostic Texts</h2>
+
+            <div class="chrono-step">
+                <span>1. The Monad</span>
+                <blockquote>
+                    “The One is the invisible Spirit…
+                    It is impossible to describe.”
+                </blockquote>
+                <p>
+                    The true God does not create.
+                    It exists beyond being and thought.
+                </p>
+            </div>
+
+            <div class="chrono-step">
+                <span>2. Emanation of Aeons</span>
+                <blockquote>
+                    “From the light came forth a power,
+                    perfect in glory.”
+                </blockquote>
+                <p>
+                    Reality unfolds through emanation,
+                    not intentional creation.
+                </p>
+            </div>
+
+            <div class="chrono-step">
+                <span>3. Sophia’s Error</span>
+                <blockquote>
+                    “She brought forth something imperfect.”
+                </blockquote>
+                <p>
+                    Independent creation introduces deficiency
+                    into the divine order.
+                </p>
+            </div>
+
+            <div class="chrono-step">
+                <span>4. Birth of the Demiurge</span>
+                <blockquote>
+                    “He did not know from where his power came.”
+                </blockquote>
+                <p>
+                    The Demiurge is ignorant of higher reality
+                    and believes himself supreme.
+                </p>
+            </div>
+
+            <div class="chrono-step">
+                <span>5. Material Cosmos</span>
+                <blockquote>
+                    “They created the heavens and the earth
+                    according to their power.”
+                </blockquote>
+                <p>
+                    The world is ordered yet flawed,
+                    governed by Archons.
+                </p>
+            </div>
+
+            <div class="chrono-step">
+                <span>6. Humanity</span>
+                <blockquote>
+                    “They fashioned Adam,
+                    but he lay motionless.”
+                </blockquote>
+                <p>
+                    Archons cannot create true life.
+                </p>
+            </div>
+
+            <div class="chrono-step">
+                <span>7. Divine Spark</span>
+                <blockquote>
+                    “The breath of the Mother became power in him.”
+                </blockquote>
+                <p>
+                    Sophia implants divine light into humanity.
+                </p>
+            </div>
+
+            <div class="chrono-step">
+                <span>8. Purpose of Gnosis</span>
+                <blockquote>
+                    “Ignorance is the mother of all evil.”
+                </blockquote>
+                <p>
+                    Salvation is awakening and return,
+                    not sacrifice or judgment.
+                </p>
+            </div>
+
+        </section>
+
+    </div>
 
 </main>
 
 <footer>
-    <p>
-        Technical Knowledge Page • Gnosticism Overview • Educational Use
-    </p>
+    <p>Gnosticism Technical Reference • Primary Text–Driven • Educational Use</p>
 </footer>
+
+<script>
+    function openTab(id) {
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        document.querySelector(`[onclick="openTab('${id}')"]`).classList.add('active');
+        document.getElementById(id).classList.add('active');
+    }
+</script>
 
 </body>
 </html>
