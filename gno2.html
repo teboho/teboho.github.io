@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gnosticism – Technical & Textual Reference</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --bg:#0f172a;
+    --panel:#020617;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --accent:#38bdf8;
+    --border:#1e293b;
+}
+body {
+    margin:0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.75;
+    overflow-x:hidden;
+}
+header {
+    padding:2.5rem;
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(135deg,#020617,#020617cc);
+}
+header h1 {
+    margin:0;
+    color:var(--accent);
+    font-size:2.5rem;
+}
+header p {
+    max-width:1050px;
+    color:var(--muted);
+}
+main {
+    max-width:1200px;
+    margin:auto;
+    padding:2rem;
+}
+.tabs {
+    display:flex;
+    gap:1.2rem;
+    border-bottom:1px solid var(--border);
+    margin-bottom:2rem;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+.tab {
+    padding:.8rem 1.2rem;
+    cursor:pointer;
+    color:var(--muted);
+    border-bottom:3px solid transparent;
+    white-space:nowrap;
+    transition:all 0.2s ease;
+}
+.tab:hover {
+    color:var(--text);
+}
+.tab.active {
+    color:var(--accent);
+    border-bottom-color:var(--accent);
+}
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+
+section {
+    background:var(--panel);
+    padding:2.2rem;
+    border-radius:8px;
+    border:1px solid var(--border);
+    margin-bottom:2.5rem;
+}
+h2 {
+    color:var(--accent);
+    border-bottom:1px solid var(--border);
+    padding-bottom:.5rem;
+}
+.chrono-step {
+    border-left:4px solid var(--accent);
+    padding-left:1.5rem;
+    margin-bottom:3rem;
+}
+.chrono-step span {
+    display:block;
+    font-weight:bold;
+    font-size:1.15rem;
+    color:var(--accent);
+    margin-bottom:.5rem;
+}
+blockquote {
+    margin:1rem 0;
+    padding-left:1rem;
+    border-left:3px solid var(--border);
+    color:#c7d2fe;
+    font-style:italic;
+}
+.ref-list li {
+    margin-bottom:1rem;
+}
+footer {
+    text-align:center;
+    padding:2rem;
+    color:var(--muted);
+    border-top:1px solid var(--border);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    header {
+        padding:1.5rem;
+    }
+    header h1 {
+        font-size:1.8rem;
+    }
+    header p {
+        font-size:0.95rem;
+    }
+    main {
+        padding:1rem;
+    }
+    .tabs {
+        gap:0.5rem;
+        padding-bottom:0.5rem;
+    }
+    .tab {
+        padding:0.6rem 0.8rem;
+        font-size:0.9rem;
+    }
+    section {
+        padding:1.5rem;
+        margin-bottom:1.5rem;
+    }
+    h2 {
+        font-size:1.4rem;
+    }
+    .chrono-step {
+        padding-left:1rem;
+        margin-bottom:2rem;
+    }
+    .chrono-step span {
+        font-size:1rem;
+    }
+    blockquote {
+        font-size:0.95rem;
+        padding-left:0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size:1.5rem;
+    }
+    header p {
+        font-size:0.9rem;
+    }
+    .tabs {
+        gap:0.3rem;
+    }
+    .tab {
+        padding:0.5rem 0.6rem;
+        font-size:0.85rem;
+    }
+    section {
+        padding:1rem;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Gnosticism</h1>
+<p>
+A technical, source-driven reference to Gnostic cosmology and theology,
+grounded in primary Nag Hammadi texts and modern critical scholarship.
+</p>
+</header>
+
+<main>
+
+<div class="tabs">
+    <div class="tab active" onclick="openTab('overview')">Overview</div>
+    <div class="tab" onclick="openTab('chronological')">Chronological (Texts)</div>
+    <div class="tab" onclick="openTab('creation')">Creation (Cosmology)</div>
+    <div class="tab" onclick="openTab('practices')">Practices & Rituals</div>
+    <div class="tab" onclick="openTab('lawofone')">Law of One</div>
+    <div class="tab" onclick="openTab('references')">References</div>
+</div>
+
+<!-- OVERVIEW -->
+
+<div id="overview" class="tab-content active">
+<section>
+<h2>Conceptual Overview</h2>
+
+<p>
+Gnosticism represents a family of religious systems whose central claim
+is that the fundamental human problem is <strong>ignorance of reality</strong>,
+not moral failure. The term derives from the Greek <em>gnōsis</em> (knowledge),
+emphasizing direct experiential knowledge of the divine rather than faith or ethical conduct alone.
+</p>
+
+<p>
+In Gnostic thought, the visible cosmos is not the direct work of the highest
+divine principle. Instead, it originates from a lesser, ignorant creator
+(Demiurge), operating at a remove from the ultimate Source (Monad).
+This radical dualism distinguishes between the transcendent God of pure spirit
+and the inferior deity responsible for matter and evil.
+</p>
+
+<p>
+Salvation (<em>soteria</em>) is therefore epistemic and ontological:
+to awaken to one's divine origin and escape the structures of material
+and cosmic domination. This liberation occurs through revelation, often
+mediated by a divine messenger (Christ, in Christian Gnostic texts) who
+descends to awaken humanity from its sleep of ignorance.
+</p>
+
+<p>
+<strong>Key Characteristics:</strong><br>
+Gnostic systems typically feature a transcendent supreme deity, emanations or intermediaries,
+a fallen aspect of divinity (often Sophia), an ignorant creator god (Demiurge),
+archons (cosmic rulers) who imprison souls, divine sparks trapped in matter,
+and salvation through secret knowledge rather than faith or works.
+</p>
+</section>
+</div>
+
+<!-- CHRONOLOGICAL -->
+
+<div id="chronological" class="tab-content">
+<section>
+<h2>Chronological Development Through Texts</h2>
+
+<div class="chrono-step">
+<span>Gospel of Thomas (c. 50–100 CE)</span>
+<blockquote>
+"When you know yourselves, then you will be known."
+</blockquote>
+<p>
+An early sayings collection portraying Jesus as a wisdom teacher.
+Salvation is self-knowledge; no creation myth is yet present.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>Apocryphon of John (c. 100–130 CE)</span>
+<blockquote>
+"I am the invisible Spirit…
+It is not right to think of it as a god."
+</blockquote>
+<p>
+Introduces a full metaphysical framework:
+the Monad, emanations (Aeons), Sophia, and the Demiurge.
+This text forms the backbone of later Gnostic cosmology.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>Hypostasis of the Archons (c. 130–170 CE)</span>
+<blockquote>
+"It is I who am God, and there is no other beside me."
+</blockquote>
+<p>
+Reinterprets biblical creator language as arrogance born of ignorance,
+explicitly separating divine authority from cosmic power.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>Gospel of Truth (Valentinian, c. 150–180 CE)</span>
+<blockquote>
+"Ignorance of the Father brought anguish and terror."
+</blockquote>
+<p>
+Develops a psychological and therapeutic understanding of salvation.
+Error is forgetting one's origin; knowledge heals alienation.
+</p>
+</div>
+</section>
+</div>
+
+<!-- PRACTICES & RITUALS -->
+
+<div id="practices" class="tab-content">
+<section>
+<h2>Gnostic Practices & Spiritual Techniques</h2>
+
+<p>
+Unlike institutional Christianity, Gnostic communities emphasized direct experience over
+dogma and personal transformation over hierarchical authority. Their practices aimed to
+trigger gnosis—the immediate, experiential knowledge of the divine self.
+</p>
+
+<div class="chrono-step">
+<span>1. Sacramental Rituals</span>
+<p>
+<strong>Baptism:</strong> Not merely symbolic cleansing but an initiatory rite marking
+the soul's awakening. Some Gnostic groups practiced multiple baptisms corresponding to
+different levels of spiritual attainment.
+</p>
+<p>
+<strong>Bridal Chamber:</strong> A mysterious sacrament mentioned in the Gospel of Philip,
+possibly involving sacred union symbolism or actual ritual marriage representing the
+reunification of the divided self (male-female syzygy restored).
+</p>
+<blockquote>
+"If anyone becomes a son of the bridal chamber, he will receive the light."
+<br>— Gospel of Philip
+</blockquote>
+<p>
+<strong>Chrism (Anointing):</strong> Anointing with sacred oil to seal the initiate's
+spiritual transformation and protect against archontic interference.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>2. Contemplative & Visionary Practices</span>
+<p>
+<strong>Meditation on Divine Names:</strong> Contemplation of sacred names and formulae
+(often vowel sequences like AEEIOUO) believed to resonate with archontic frequencies,
+allowing passage through planetary spheres.
+</p>
+<p>
+<strong>Visionary Ascent:</strong> Guided meditation or trance states enabling the soul
+to practice ascending through the archontic realms, learning passwords and recognizing
+the deceptions of cosmic rulers.
+</p>
+<p>
+<strong>Self-Knowledge Inquiry:</strong> Systematic questioning of one's true nature,
+exemplified in Thomas: "If you bring forth what is within you, what you bring forth
+will save you."
+</p>
+</div>
+
+<div class="chrono-step">
+<span>3. Mythic Recitation & Sacred Drama</span>
+<p>
+Gnostic communities would recite and dramatize cosmological myths, not as mere stories
+but as living realities. By ritually reenacting Sophia's fall and redemption, practitioners
+identified their own journey with the cosmic drama.
+</p>
+<p>
+The <em>Gospel of Truth</em> describes knowledge itself as a therapeutic narrative that
+heals the wound of separation.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>4. Ethical Practices</span>
+<p>
+<strong>Asceticism (Some Groups):</strong> Rejection of material pleasures to weaken
+the body's hold on the spirit. Fasting, celibacy, and renunciation were common among
+encratite Gnostics.
+</p>
+<p>
+<strong>Libertinism (Other Groups):</strong> Some Gnostic groups reasoned that if the
+material world is evil and the Demiurge's law is bondage, then violating his commandments
+is a form of spiritual rebellion. This remains controversial and possibly exaggerated by
+heresiologists.
+</p>
+<p>
+<strong>Non-Attachment:</strong> The middle path emphasized neither extreme indulgence
+nor extreme denial, but conscious non-identification with material existence while still
+functioning within it.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>5. Secret Teachings & Initiation</span>
+<p>
+Knowledge was transmitted in grades, with outer teachings for catechumens and inner
+mysteries reserved for the pneumatic elect. This created tension with orthodox Christianity's
+emphasis on public, universal doctrine.
+</p>
+<p>
+<strong>The Three-Fold Path (Valentinian):</strong>
+<br>• Material instruction (exoteric)
+<br>• Psychic training (ethical/contemplative)
+<br>• Pneumatic revelation (mystical union)
+</p>
+</div>
+
+</section>
+
+<section>
+<h2>Death Practices & Eschatology</h2>
+
+<div class="chrono-step">
+<span>Preparation for Death</span>
+<p>
+Gnostics viewed death as the soul's supreme test—the moment when it must navigate the
+archontic spheres and reach the Pleroma. Elaborate instructions were given to the dying:
+</p>
+<p>
+<strong>Passwords & Formulae:</strong> Secret names and phrases to speak when confronted
+by each archon, demonstrating gnosis and right of passage.
+</p>
+<p>
+<strong>Recognition Training:</strong> Learning to recognize and refuse the Demiurge's
+temptations (e.g., attractive reincarnation scenarios designed to trap the soul in another
+material life).
+</p>
+<p>
+<strong>The Garment of Light:</strong> Visualization of donning spiritual bodies to replace
+material ones, layer by layer ascending through spheres.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>Eschatological Vision</span>
+<p>
+Unlike apocalyptic Christianity, which expected cosmic renewal, Gnostics anticipated
+cosmic dissolution. When all divine sparks return to the Pleroma, the material universe—
+having served no true purpose—will collapse. The Demiurge will recognize his error,
+and the archons will dissolve.
+</p>
+<p>
+This is not destruction but restoration: reality returning to its proper, purely spiritual
+state before Sophia's error introduced deficiency.
+</p>
+</div>
+
+</section>
+</div>
+
+<!-- CREATION -->
+
+<div id="creation" class="tab-content">
+<section>
+<h2>Creation in Gnostic Cosmology</h2>
+
+<div class="chrono-step">
+<span>1. The Monad</span>
+<p>
+The Monad is the ineffable Source of all being.
+It does not create or govern.
+To act would imply lack or need.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>2. Emanation</span>
+<p>
+Existence unfolds through emanation rather than creation ex nihilo.
+Each Aeon represents an intelligible aspect of divine fullness
+(<em>Pleroma</em>).
+</p>
+</div>
+
+<div class="chrono-step">
+<span>3. Sophia's Error</span>
+<p>
+Sophia (Wisdom), the youngest Aeon, acts without her consort, attempting
+to comprehend the incomprehensible Father. This generates a deficient
+product: Yaldabaoth, the Demiurge, who possesses creative power but lacks
+true divine knowledge.
+</p>
+<blockquote>
+"She wanted to bring forth a likeness out of herself without the consent
+of the Spirit... and her thought did not remain idle."
+<br>— Apocryphon of John
+</blockquote>
+<p>
+This is not moral evil but metaphysical imbalance—passion without knowledge,
+desire without wisdom. Sophia's error introduces hierarchy, deficiency,
+and ultimately the material cosmos into existence.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>4. The Demiurge</span>
+<p>
+The Demiurge (often named Yaldabaoth or Saklas, "the fool") arises outside the Pleroma.
+He possesses creative power but lacks awareness of the Source,
+leading him to mistake himself for the supreme God. In the <em>Hypostasis of the Archons</em>,
+he declares: "It is I who am God, and there is no other beside me."
+</p>
+<p>
+Working with his archons (rulers), the Demiurge fashions the material cosmos according
+to the pattern of the Pleroma—but as a flawed copy, lacking true knowledge.
+He creates Adam in the image of the divine Anthropos but cannot give him life
+until Sophia secretly breathes the divine spark into humanity.
+</p>
+<p>
+The Demiurge is not purely evil but profoundly ignorant. His cosmos operates through
+necessity (<em>heimarmenē</em>), fate, and law—structures that bind souls to matter
+and prevent their return to the Pleroma.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>5. Material World</span>
+<p>
+The cosmos is ordered but flawed—a copy produced without knowledge of the original.
+It exhibits beauty and structure because it imitates the Pleroma, yet remains
+fundamentally deficient because its architect is ignorant.
+</p>
+<p>
+Archons (from Greek <em>archōn</em>, "ruler") enforce necessity, fate, and time.
+These cosmic powers, aligned with planets and celestial spheres, govern the
+deterministic laws that bind souls to the cycle of birth, death, and reincarnation.
+</p>
+<p>
+The material world is not inherently evil, but it is a prison. Matter itself
+becomes the medium of forgetfulness, obscuring the soul's divine origin.
+The body, while not condemned, is viewed as a temporary vessel that must be
+transcended rather than perfected.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>6. Humanity and the Divine Spark</span>
+<p>
+Human beings contain a fragment of divine light (<em>pneuma</em>) implanted by Sophia.
+This spark is the target of salvation through gnosis. Most humans remain
+unaware of their true nature, living as <em>hylikoi</em> (material beings)
+or <em>psychikoi</em> (soul-beings capable of moral effort but not transcendence).
+</p>
+<p>
+The <em>pneumatikoi</em> (spiritual ones) possess the capacity for gnosis—
+direct, experiential knowledge of their divine origin. Through revelation,
+often brought by a divine messenger (Christ in Christian Gnostic texts),
+these elect souls can awaken from the sleep of ignorance.
+</p>
+<blockquote>
+"I am the voice of the awakening from sleep in the aeon of night."
+<br>— Thunder, Perfect Mind
+</blockquote>
+<p>
+Salvation is not earned through works or granted through faith alone,
+but achieved through recognition: remembering who you truly are.
+The goal is to ascend through the archontic spheres, shedding material
+and psychic layers, until the divine spark reunites with the Pleroma.
+</p>
+</div>
+
+</section>
+</div>
+
+</section>
+</div>
+
+<!-- LAW OF ONE COMPARISON -->
+
+<div id="lawofone" class="tab-content">
+<section>
+<h2>Cross-Reference: Gnosticism & The Law of One</h2>
+
+<p>
+The Law of One (Ra Material), channeled 1981–1984, presents a cosmology with striking parallels
+to Gnostic metaphysics despite arising from entirely different contexts. Both systems describe
+reality as emanating from an ultimate unity, involving graduated densities of consciousness,
+and addressing the problem of separation from Source.
+</p>
+
+<div class="chrono-step">
+<span>The One Infinite Creator ↔ The Monad</span>
+<p>
+<strong>Law of One:</strong> "The One Infinite Creator... in its infinite intelligence
+created distortion of free will." The Creator is ineffable, beyond personification,
+and does not act through will or desire but through intelligent infinity.
+</p>
+<p>
+<strong>Gnosticism:</strong> The Monad is similarly ineffable and unchanging. To act would
+imply need or deficiency. Both systems reject anthropomorphic conceptions of ultimate reality.
+</p>
+<p>
+<strong>Key Parallel:</strong> Both conceive ultimate reality as absolute unity that requires
+no action, worship, or relationship—it simply IS.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>Logos & Sub-Logos ↔ Aeons & Demiurge</span>
+<p>
+<strong>Law of One:</strong> The Logos (creative principle) subdivides into sub-Logoi, each
+creating localized reality systems. Our solar system's Logos created the conditions for evolution
+through densities. Sub-Logoi operate with creative freedom within parameters.
+</p>
+<p>
+<strong>Gnosticism:</strong> Aeons emanate from the Pleroma in syzygy (male-female pairs),
+each representing divine attributes. Sophia's independent action produces the Demiurge,
+who creates the material cosmos without full knowledge of the Source.
+</p>
+<p>
+<strong>Key Difference:</strong> In the Law of One, sub-Logoi are legitimate expressions of
+the Creator. In Gnosticism, the Demiurge is a mistake—a deficient creator operating in ignorance.
+However, both describe hierarchical emanation and delegated creative authority.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>Densities ↔ Archontic Spheres</span>
+<p>
+<strong>Law of One:</strong> Evolution proceeds through eight densities (dimensions of consciousness):
+1st (elements), 2nd (growth), 3rd (self-awareness/choice), 4th (love), 5th (wisdom),
+6th (unity), 7th (gateway), 8th (octave/return to infinity).
+</p>
+<p>
+<strong>Gnosticism:</strong> The soul must ascend through planetary spheres ruled by archons,
+each representing a cosmic power or fate-principle. These spheres imprison consciousness
+in cycles of reincarnation and deterministic law.
+</p>
+<p>
+<strong>Key Parallel:</strong> Both describe staged ascent through graduated levels of reality.
+</p>
+<p>
+<strong>Key Difference:</strong> Law of One densities are pedagogical—designed for learning
+and evolution. Gnostic spheres are prisons—obstacles to overcome. One is educational;
+the other is carceral.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>The Veil of Forgetting ↔ Material Amnesia</span>
+<p>
+<strong>Law of One:</strong> Between 2nd and 3rd density, a "veil of forgetting" was implemented
+to make spiritual choice more meaningful. We forget our divine nature to experience genuine
+free will in ignorance, making the choice to serve others or self more pure.
+</p>
+<p>
+<strong>Gnosticism:</strong> Incarnation into matter causes the soul to forget its divine origin.
+This forgetting is enforced by the Demiurge and archons—a cosmic conspiracy of ignorance
+designed to keep souls imprisoned.
+</p>
+<p>
+<strong>Key Parallel:</strong> Both systems agree that human suffering stems from forgetting
+one's true nature as divine consciousness.
+</p>
+<p>
+<strong>Key Difference:</strong> In the Law of One, forgetting is intentional and pedagogical—
+a gift for spiritual growth. In Gnosticism, forgetting is imprisonment and control.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>Harvest/Graduation ↔ Gnosis/Ascension</span>
+<p>
+<strong>Law of One:</strong> "Harvest" occurs when a soul's vibration matches the next density.
+Graduation from 3rd to 4th density requires 51% service-to-others polarization.
+This is an evolutionary milestone, not escape.
+</p>
+<p>
+<strong>Gnosticism:</strong> Gnosis enables the soul to recognize its divine spark and ascend
+through the archontic spheres back to the Pleroma. Salvation is escape from the cosmos itself,
+not progression within it.
+</p>
+<p>
+<strong>Key Parallel:</strong> Both emphasize transformation through knowledge/awareness rather
+than faith or ritual alone.
+</p>
+<p>
+<strong>Key Difference:</strong> Law of One sees creation as purposeful evolution within divine
+order. Gnosticism sees creation as a mistake to be transcended and escaped.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>Service-to-Others vs Service-to-Self ↔ Pneumatic vs Hylic</span>
+<p>
+<strong>Law of One:</strong> Consciousness polarizes toward service-to-others (unity) or
+service-to-self (separation). Both paths are valid for evolution, though service-to-self
+eventually reunites with unity at higher densities.
+</p>
+<p>
+<strong>Gnosticism:</strong> Humanity divides into <em>pneumatikoi</em> (spiritual—capable of gnosis),
+<em>psychikoi</em> (soul—capable of moral effort), and <em>hylikoi</em> (material—bound to flesh).
+Only the pneumatic possess the divine spark necessary for salvation.
+</p>
+<p>
+<strong>Key Parallel:</strong> Both systems recognize fundamental differences in consciousness
+and spiritual capacity among humans.
+</p>
+<p>
+<strong>Key Difference:</strong> The Law of One is ultimately egalitarian—all consciousness
+eventually returns to the Creator. Gnosticism is elitist—only the elect possess the divine
+spark necessary for return.
+</p>
+</div>
+
+<div class="chrono-step">
+<span>Yahweh/Jehovah ↔ The Demiurge</span>
+<p>
+<strong>Law of One:</strong> Yahweh is identified as a sub-Logos and later a social memory complex
+that interacted with Earth, sometimes making errors due to overzealous protection of its chosen
+people. Yahweh is not evil but limited in perspective.
+</p>
+<p>
+<strong>Gnosticism:</strong> The God of the Hebrew Bible (often identified with Yaldabaoth/Demiurge)
+is ignorant, jealous, and tyrannical. His declaration "I am the Lord thy God, thou shalt have
+no other gods before me" is evidence of his ignorance of the true Father above.
+</p>
+<p>
+<strong>Key Parallel:</strong> Both distinguish between the biblical creator deity and the
+ultimate transcendent Source. Both see Yahweh as a lesser, limited intelligence.
+</p>
+<p>
+<strong>Key Difference:</strong> The Law of One treats Yahweh sympathetically as a well-intentioned
+but flawed helper. Gnosticism treats the Demiurge as an obstacle—though not purely evil, he is
+profoundly ignorant and his creation is a prison.
+</p>
+</div>
+
+</section>
+
+<section>
+<h2>Philosophical Divergence</h2>
+
+<p>
+Despite structural parallels, the two systems diverge fundamentally in their attitude toward
+creation and matter:
+</p>
+
+<p>
+<strong>The Law of One: Affirmative Cosmology</strong><br>
+Creation is intentional, purposeful, and ultimately benevolent. The material universe is a
+classroom designed for consciousness evolution. All experiences—even suffering—serve learning.
+Matter is not inferior but simply a lower vibration of the same infinite consciousness.
+The goal is not escape but graduation to higher service and unity within creation.
+</p>
+
+<p>
+<strong>Gnosticism: Negative Cosmology</strong><br>
+Creation is a mistake born of ignorance. The material universe is a prison designed (even if
+unintentionally) to trap divine sparks in forgetfulness. Suffering is not pedagogical but
+symptomatic of fundamentally flawed reality. Matter is inferior—a degraded copy of true
+spiritual reality. The goal is escape from creation itself, return to the Pleroma, and
+dissolution of material existence.
+</p>
+
+<p>
+This difference colors everything: the Law of One counsels engagement, compassion, and service
+within the world. Gnosticism counsels detachment, gnosis, and transcendence beyond the world.
+</p>
+
+</section>
+
+<section>
+<h2>Modern Context</h2>
+
+<p>
+The Law of One's popularity in New Age and spiritual communities represents a synthesis of
+Eastern non-dualism, Western esotericism, and scientific cosmology. It offers Gnostic structure
+without Gnostic pessimism—retaining the mystery school architecture while affirming material
+existence.
+</p>
+
+<p>
+Classical Gnosticism survives in Mandaeism and influences Western esoteric traditions (Catharism,
+Kabbalah, Hermeticism). Its radical world-rejection resonates with those experiencing modernity's
+alienation, environmental collapse, or technocratic control systems.
+</p>
+
+<p>
+Both systems ask the same question: <em>Why do we suffer despite being divine?</em><br>
+Their answers diverge on whether suffering is pedagogical design or cosmic malfunction.
+</p>
+
+</section>
+
+<section>
+<h2>Law of One Reference Sources</h2>
+<ul class="ref-list">
+    <li>
+        Elkins, D., Rueckert, C., & McCarty, J. <em>The Ra Material: An Ancient Astronaut Speaks</em> 
+        (The Law of One, Books I-V). L/L Research, 1982-1998.
+    </li>
+    <li>
+        Available online at <em>lawofone.info</em> - Complete searchable database of all sessions.
+    </li>
+    <li>
+        Key sessions for comparison: Session 13 (Logos), Session 16 (Harvest), Session 27 (Polarity), 
+        Session 28 (Yahweh), Session 79 (Densities).
+    </li>
+</ul>
+</section>
+</div>
+
+<!-- REFERENCES -->
+
+<div id="references" class="tab-content">
+<section>
+<h2>Primary Sources</h2>
+<ul class="ref-list">
+    <li>
+        Robinson, J. M. (ed.). <em>The Nag Hammadi Library in English</em>.
+        HarperOne, 1990.
+    </li>
+    <li>
+        Layton, B. <em>The Gnostic Scriptures</em>.
+        Yale University Press, 1987.
+    </li>
+    <li>
+        Meyer, M. (ed.). <em>The Nag Hammadi Scriptures</em>.
+        HarperOne, 2007.
+    </li>
+</ul>
+
+<h2>Secondary Scholarship</h2>
+<ul class="ref-list">
+    <li>
+        Pagels, E. <em>The Gnostic Gospels</em>.
+        Random House, 1979.
+    </li>
+    <li>
+        King, K. L. <em>What Is Gnosticism?</em>
+        Harvard University Press, 2003.
+    </li>
+    <li>
+        Bentley Layton, "Prolegomena to the Study of Ancient Gnosticism,"
+        <em>Journal of Theological Studies</em>.
+    </li>
+</ul>
+
+<h2>Historical Context</h2>
+<ul class="ref-list">
+    <li>
+        Irenaeus of Lyons. <em>Against Heresies</em> (Adversus Haereses),
+        2nd century CE.
+    </li>
+    <li>
+        Williams, M. <em>Rethinking "Gnosticism"</em>.
+        Princeton University Press, 1996.
+    </li>
+</ul>
+
+<p>
+Dates are approximate and reflect current scholarly consensus.
+Translations vary slightly across editions.
+</p>
+</section>
+</div>
+
+</main>
+
+<footer>
+<p>Gnosticism • Primary Texts & Critical Scholarship • Educational Use</p>
+</footer>
+
+<script>
+function openTab(id){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+    document.querySelector(`[onclick="openTab('${id}')"]`).classList.add('active');
+    document.getElementById(id).classList.add('active');
+}
+</script>
+
+</body>
+</html>
