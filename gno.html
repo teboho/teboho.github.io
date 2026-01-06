@@ -1,416 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Gnosticism – Technical Reference</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Gnosticism – Technical & Textual Reference</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        :root {
-            --bg: #0f172a;
-            --panel: #020617;
-            --text: #e5e7eb;
-            --muted: #9ca3af;
-            --accent: #38bdf8;
-            --border: #1e293b;
-        }
+<style>
+:root {
+    --bg:#0f172a;
+    --panel:#020617;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --accent:#38bdf8;
+    --border:#1e293b;
+}
+body {
+    margin:0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.75;
+}
+header {
+    padding:2.5rem;
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(135deg,#020617,#020617cc);
+}
+header h1 {
+    margin:0;
+    color:var(--accent);
+    font-size:2.5rem;
+}
+header p {
+    max-width:1000px;
+    color:var(--muted);
+}
+main {
+    max-width:1200px;
+    margin:auto;
+    padding:2rem;
+}
+.tabs {
+    display:flex;
+    gap:1.2rem;
+    border-bottom:1px solid var(--border);
+    margin-bottom:2rem;
+}
+.tab {
+    padding:.8rem 1.2rem;
+    cursor:pointer;
+    color:var(--muted);
+    border-bottom:3px solid transparent;
+}
+.tab.active {
+    color:var(--accent);
+    border-bottom-color:var(--accent);
+}
+.tab-content { display:none; }
+.tab-content.active { display:block; }
 
-        body {
-            margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.65;
-        }
-
-        header {
-            padding: 2.5rem;
-            border-bottom: 1px solid var(--border);
-            background: linear-gradient(135deg, #020617, #020617cc);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.4rem;
-            color: var(--accent);
-        }
-
-        header p {
-            max-width: 900px;
-            color: var(--muted);
-        }
-
-        main {
-            max-width: 1150px;
-            margin: auto;
-            padding: 2rem;
-        }
-
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 1.2rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .tab {
-            padding: 0.8rem 1.2rem;
-            cursor: pointer;
-            color: var(--muted);
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        section {
-            background: var(--panel);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin-bottom: 2rem;
-        }
-
-        h2 {
-            color: var(--accent);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
-        }
-
-        ul {
-            padding-left: 1.3rem;
-        }
-
-        li {
-            margin-bottom: 0.6rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background: #020617aa;
-            padding: 1.5rem;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-        }
-
-        .chrono-step {
-            margin-bottom: 2.5rem;
-            padding-left: 1.5rem;
-            border-left: 4px solid var(--accent);
-        }
-
-        .chrono-step span {
-            display: block;
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        blockquote {
-            margin: 1rem 0;
-            padding-left: 1rem;
-            border-left: 3px solid var(--border);
-            color: #c7d2fe;
-            font-style: italic;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
-        }
-
-        code {
-            background: #020617;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            color: #7dd3fc;
-            font-size: 0.9rem;
-        }
-    </style>
+section {
+    background:var(--panel);
+    padding:2.2rem;
+    border-radius:8px;
+    border:1px solid var(--border);
+    margin-bottom:2.5rem;
+}
+h2 {
+    color:var(--accent);
+    border-bottom:1px solid var(--border);
+    padding-bottom:.5rem;
+}
+.chrono-step {
+    border-left:4px solid var(--accent);
+    padding-left:1.5rem;
+    margin-bottom:3rem;
+}
+.chrono-step span {
+    display:block;
+    font-weight:bold;
+    font-size:1.15rem;
+    color:var(--accent);
+    margin-bottom:.5rem;
+}
+blockquote {
+    margin:1rem 0;
+    padding-left:1rem;
+    border-left:3px solid var(--border);
+    color:#c7d2fe;
+    font-style:italic;
+}
+footer {
+    text-align:center;
+    padding:2rem;
+    color:var(--muted);
+    border-top:1px solid var(--border);
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>Gnosticism</h1>
-    <p>
-        A technical, source-driven reference to Gnostic thought,
-        structured using primary texts from the Nag Hammadi corpus
-        and related early writings.
-    </p>
+<h1>Gnosticism</h1>
+<p>
+This document presents a technical, text-driven analysis of Gnosticism,
+drawing directly from primary sources (Nag Hammadi texts) and tracing the
+internal logic of Gnostic cosmology, anthropology, and soteriology.
+</p>
 </header>
 
 <main>
 
-    <!-- Tabs -->
-    <div class="tabs">
-        <div class="tab active" onclick="openTab('overview')">Overview</div>
-        <div class="tab" onclick="openTab('chronological')">Chronological Walkthrough</div>
-        <div class="tab" onclick="openTab('creation')">Creation (Gnostic)</div>
-    </div>
+<div class="tabs">
+    <div class="tab active" onclick="openTab('overview')">Overview</div>
+    <div class="tab" onclick="openTab('chronological')">Chronological (Texts)</div>
+    <div class="tab" onclick="openTab('creation')">Creation (Cosmology)</div>
+</div>
 
-    <!-- OVERVIEW -->
-    <div id="overview" class="tab-content active">
+<!-- OVERVIEW -->
+<div id="overview" class="tab-content active">
+<section>
+<h2>What Gnosticism Is (At Its Core)</h2>
 
-        <section>
-            <h2>Definition</h2>
-            <p>
-                <strong>Gnosticism</strong> refers to several early religious movements
-                (1st–4th century CE) asserting that salvation is achieved through
-                <em>gnosis</em> — direct experiential knowledge of divine reality.
-            </p>
-        </section>
+<p>
+Gnosticism is not a single religion but a <strong>mode of religious explanation</strong>.
+Its defining claim is that the fundamental human problem is not sin, but
+<strong>ignorance of reality</strong>.
+</p>
 
-        <section>
-            <h2>Core Principles</h2>
-            <ul>
-                <li>Salvation through knowledge, not faith alone</li>
-                <li>Radical distinction between spirit and matter</li>
-                <li>A transcendent, unknowable Source (Monad)</li>
-                <li>A lesser creator (Demiurge) governs the material cosmos</li>
-                <li>Divine spark imprisoned within humanity</li>
-            </ul>
-        </section>
+<p>
+Gnostic texts consistently argue that the visible world is not the work
+of the highest divine principle. Instead, it is the product of a lower,
+ignorant power operating at a distance from the true Source.
+</p>
 
-        <section>
-            <h2>Key Figures & Concepts</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Valentinus</h3>
-                    <p>Second-century teacher who systematized Christian Gnostic theology.</p>
-                </div>
-                <div class="card">
-                    <h3>Sophia</h3>
-                    <p>Divine Wisdom whose error initiates cosmic fragmentation.</p>
-                </div>
-                <div class="card">
-                    <h3>Demiurge</h3>
-                    <p>Ignorant creator of the material world, ruler of the Archons.</p>
-                </div>
-            </div>
-        </section>
+<p>
+Salvation, therefore, is not achieved through obedience, sacrifice,
+or belief alone, but through <em>gnosis</em> — the awakening recognition
+of one’s divine origin and alienation from the material system.
+</p>
 
-    </div>
+<p>
+In this framework:
+</p>
 
-    <!-- CHRONOLOGICAL -->
-    <div id="chronological" class="tab-content">
+<ul>
+<li>The universe is a <strong>mistaken construction</strong>, not a moral test.</li>
+<li>Human beings are <strong>hybrids</strong>: divine essence + material body.</li>
+<li>Revelation is <strong>informational</strong>, not juridical.</li>
+</ul>
 
-        <section>
-            <h2>Chronological Walkthrough (Primary Texts)</h2>
+<p>
+This explains why Gnostic myths are elaborate: they are not stories for
+devotion, but <strong>models for understanding how reality broke</strong>.
+</p>
+</section>
+</div>
 
-            <div class="chrono-step">
-                <span>c. 50–100 CE | Gospel of Thomas</span>
-                <blockquote>
-                    “The kingdom is inside you and it is outside you…
-                    When you know yourselves, you will be known.”
-                </blockquote>
-                <p>
-                    Jesus is portrayed as a revealer of self-knowledge.
-                    No crucifixion theology; salvation through awakening.
-                </p>
-            </div>
+<!-- CHRONOLOGICAL -->
+<div id="chronological" class="tab-content">
+<section>
+<h2>Chronological Development Through Texts</h2>
 
-            <div class="chrono-step">
-                <span>c. 100–130 CE | Apocryphon of John</span>
-                <blockquote>
-                    “I am the invisible Spirit…
-                    It is not right to think of it as a god.”
-                </blockquote>
-                <p>
-                    Introduces the Monad, Aeons, and a transcendent divine source
-                    beyond the creator of the material world.
-                </p>
-            </div>
+<div class="chrono-step">
+<span>Gospel of Thomas (c. 50–100 CE)</span>
+<blockquote>
+“When you know yourselves, then you will be known,
+and you will understand that you are children of the living Father.”
+</blockquote>
+<p>
+This text contains no creation myth, no crucifixion theology,
+and no resurrection narrative. Its concern is epistemological.
+</p>
+<p>
+The kingdom is not future or external. It is accessed through
+self-recognition. This represents the earliest stratum of Gnostic
+thought: <strong>knowledge as salvation without cosmology</strong>.
+</p>
+</div>
 
-            <div class="chrono-step">
-                <span>c. 120–150 CE | Sophia Myth</span>
-                <blockquote>
-                    “Sophia desired to bring forth something by herself,
-                    without the consent of the Spirit.”
-                </blockquote>
-                <p>
-                    Explains cosmic disorder as the result of divine error,
-                    not moral evil.
-                </p>
-            </div>
+<div class="chrono-step">
+<span>Apocryphon of John (c. 100–130 CE)</span>
+<blockquote>
+“I am the invisible Spirit…
+It is not right to think of it as a god.”
+</blockquote>
+<p>
+Here the full metaphysical framework appears.
+The highest principle is beyond being, beyond names, and beyond worship.
+</p>
+<p>
+For the first time, the creator of the world is explicitly separated
+from the ultimate divine Source.
+This text introduces emanation, Aeons, Sophia, and the Demiurge.
+</p>
+</div>
 
-            <div class="chrono-step">
-                <span>c. 130–170 CE | Hypostasis of the Archons</span>
-                <blockquote>
-                    “It is I who am God, and there is no other beside me.”
-                </blockquote>
-                <p>
-                    The Demiurge’s claim is framed as ignorance, not truth.
-                </p>
-            </div>
+<div class="chrono-step">
+<span>Hypostasis of the Archons (c. 130–170 CE)</span>
+<blockquote>
+“It is I who am God, and there is no other beside me.”
+</blockquote>
+<p>
+This statement is deliberately ironic.
+The Demiurge’s declaration mirrors Isaiah, but the text frames it
+as ignorance, not revelation.
+</p>
+<p>
+Authority, law, and cosmic order are reinterpreted as mechanisms of control
+rather than expressions of divine will.
+</p>
+</div>
 
-            <div class="chrono-step">
-                <span>c. 150–180 CE | Gospel of Truth</span>
-                <blockquote>
-                    “Ignorance of the Father brought anguish and terror,
-                    but knowledge appeared.”
-                </blockquote>
-                <p>
-                    Salvation is healing through knowledge, not forgiveness of sin.
-                </p>
-            </div>
+<div class="chrono-step">
+<span>Gospel of Truth (Valentinian, c. 150–180 CE)</span>
+<blockquote>
+“Ignorance of the Father brought anguish and terror.”
+</blockquote>
+<p>
+Sin is not ethical failure but ontological confusion.
+Error is forgetting where one comes from.
+</p>
+<p>
+Redemption occurs when knowledge dissolves fear,
+restoring the soul to its original state.
+</p>
+</div>
+</section>
+</div>
 
-            <div class="chrono-step">
-                <span>c. 180–220 CE | Gospel of Philip</span>
-                <blockquote>
-                    “Truth did not come into the world naked,
-                    but in types and images.”
-                </blockquote>
-                <p>
-                    Emphasis on symbols, sacraments, and mystical union.
-                </p>
-            </div>
+<!-- CREATION -->
+<div id="creation" class="tab-content">
+<section>
+<h2>Creation According to Gnostic Cosmology</h2>
 
-            <div class="chrono-step">
-                <span>1945 CE | Nag Hammadi Discovery</span>
-                <p>
-                    Original Gnostic texts recovered in Egypt,
-                    restoring first-hand sources.
-                </p>
-            </div>
+<div class="chrono-step">
+<span>1. The Monad (Absolute Source)</span>
+<blockquote>
+“The One is the invisible Spirit…
+It is impossible to describe.”
+</blockquote>
+<p>
+The Monad does not create, command, judge, or intervene.
+To act would imply lack.
+</p>
+<p>
+It is not a personal god but the condition of all existence.
+Everything that follows exists by distance from it.
+</p>
+</div>
 
-        </section>
+<div class="chrono-step">
+<span>2. Emanation (Not Creation)</span>
+<p>
+Reality unfolds through emanation, like light radiating from a source.
+Each emanation is slightly less perfect, not by fault,
+but by increased differentiation.
+</p>
+<p>
+Aeons represent intelligible structures of divine fullness
+(<em>Pleroma</em>).
+</p>
+</div>
 
-    </div>
+<div class="chrono-step">
+<span>3. Sophia’s Error</span>
+<blockquote>
+“She brought forth something without the consent of the Spirit.”
+</blockquote>
+<p>
+Sophia’s action is not evil but premature.
+She attempts to create without full knowledge of the Source.
+</p>
+<p>
+This introduces <strong>deficiency</strong> —
+the first break in the divine order.
+</p>
+</div>
 
-    <!-- CREATION -->
-    <div id="creation" class="tab-content">
+<div class="chrono-step">
+<span>4. The Demiurge</span>
+<blockquote>
+“He did not know from where his power came.”
+</blockquote>
+<p>
+The Demiurge is born outside the Pleroma.
+He possesses power but lacks awareness.
+</p>
+<p>
+Believing himself supreme, he becomes the god of law,
+order, and material causation.
+</p>
+</div>
 
-        <section>
-            <h2>Creation According to Gnostic Texts</h2>
+<div class="chrono-step">
+<span>5. Material Cosmos</span>
+<p>
+The world is structured, not chaotic.
+Its flaw lies in its origin: it is a copy produced
+without knowledge of the original.
+</p>
+<p>
+Archons enforce fate, time, and necessity —
+the mechanics of bondage.
+</p>
+</div>
 
-            <div class="chrono-step">
-                <span>1. The Monad</span>
-                <blockquote>
-                    “The One is the invisible Spirit…
-                    It is impossible to describe.”
-                </blockquote>
-                <p>
-                    The true God does not create.
-                    It exists beyond being and thought.
-                </p>
-            </div>
+<div class="chrono-step">
+<span>6. Humanity</span>
+<blockquote>
+“They fashioned Adam, but he lay motionless.”
+</blockquote>
+<p>
+Human beings are designed as containers,
+but the Archons cannot animate true life.
+</p>
+</div>
 
-            <div class="chrono-step">
-                <span>2. Emanation of Aeons</span>
-                <blockquote>
-                    “From the light came forth a power,
-                    perfect in glory.”
-                </blockquote>
-                <p>
-                    Reality unfolds through emanation,
-                    not intentional creation.
-                </p>
-            </div>
+<div class="chrono-step">
+<span>7. Divine Spark</span>
+<blockquote>
+“The breath of the Mother became power in him.”
+</blockquote>
+<p>
+Sophia implants divine essence into humanity
+as an act of restoration.
+</p>
+<p>
+This spark is what responds to gnosis.
+</p>
+</div>
 
-            <div class="chrono-step">
-                <span>3. Sophia’s Error</span>
-                <blockquote>
-                    “She brought forth something imperfect.”
-                </blockquote>
-                <p>
-                    Independent creation introduces deficiency
-                    into the divine order.
-                </p>
-            </div>
+<div class="chrono-step">
+<span>8. Purpose of Gnosis</span>
+<p>
+Gnosis reverses creation.
+It allows the divine element to ascend past the Archons,
+dissolve false identities, and return to the Source.
+</p>
+</div>
 
-            <div class="chrono-step">
-                <span>4. Birth of the Demiurge</span>
-                <blockquote>
-                    “He did not know from where his power came.”
-                </blockquote>
-                <p>
-                    The Demiurge is ignorant of higher reality
-                    and believes himself supreme.
-                </p>
-            </div>
-
-            <div class="chrono-step">
-                <span>5. Material Cosmos</span>
-                <blockquote>
-                    “They created the heavens and the earth
-                    according to their power.”
-                </blockquote>
-                <p>
-                    The world is ordered yet flawed,
-                    governed by Archons.
-                </p>
-            </div>
-
-            <div class="chrono-step">
-                <span>6. Humanity</span>
-                <blockquote>
-                    “They fashioned Adam,
-                    but he lay motionless.”
-                </blockquote>
-                <p>
-                    Archons cannot create true life.
-                </p>
-            </div>
-
-            <div class="chrono-step">
-                <span>7. Divine Spark</span>
-                <blockquote>
-                    “The breath of the Mother became power in him.”
-                </blockquote>
-                <p>
-                    Sophia implants divine light into humanity.
-                </p>
-            </div>
-
-            <div class="chrono-step">
-                <span>8. Purpose of Gnosis</span>
-                <blockquote>
-                    “Ignorance is the mother of all evil.”
-                </blockquote>
-                <p>
-                    Salvation is awakening and return,
-                    not sacrifice or judgment.
-                </p>
-            </div>
-
-        </section>
-
-    </div>
+</section>
+</div>
 
 </main>
 
 <footer>
-    <p>Gnosticism Technical Reference • Primary Text–Driven • Educational Use</p>
+<p>Gnosticism • Textual & Cosmological Reference • Educational Use</p>
 </footer>
 
 <script>
-    function openTab(id) {
-        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-        document.querySelector(`[onclick="openTab('${id}')"]`).classList.add('active');
-        document.getElementById(id).classList.add('active');
-    }
+function openTab(id){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+    document.querySelector(`[onclick="openTab('${id}')"]`).classList.add('active');
+    document.getElementById(id).classList.add('active');
+}
 </script>
 
 </body>
